@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block title %}
+Вход
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page auth-login-page page-decor-root">
+
+    <div class="page-decor-line auth-page-line-top">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-top.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="container auth-container page-decor-content">
+
+        <div class="auth-image-block">
+            <img
+                src="{{ url_for('static', filename='img/city/login-photo.jpg') }}"
+                alt="Владивосток"
+                class="auth-image"
+            >
+        </div>
+
+        <div class="auth-form-block auth-form-login">
+
+            <img
+                src="{{ url_for('static', filename='img/decor/seagull.png') }}"
+                alt=""
+                class="auth-seagull"
+            >
+
+            <img
+                src="{{ url_for('static', filename='img/decor/bridge_1.png') }}"
+                alt=""
+                class="auth-bridge"
+            >
+
+            <div class="auth-tabs">
+                <a href="/login" class="auth-tab active">Логин</a>
+                <a href="/register" class="auth-tab">Регистрация</a>
+            </div>
+
+            <h1 class="auth-title">
+                Добро<br>
+                пожаловать
+            </h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="auth-message">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="auth-form">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Логин"
+                    class="auth-input"
+                    autocomplete="username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    class="auth-input"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <a href="#" class="forgot-password">Забыли пароль?</a>
+
+                <button type="submit" class="auth-submit">
+                    Войти
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>или</span>
+            </div>
+
+            <a href="/register" class="auth-register-btn">
+                Зарегистрироваться
+            </a>
+
+            <!--<p class="auth-bottom-text">
+                Нет аккаунта?
+                <a href="/register">Зарегистрируйтесь</a>
+            </p>-->
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

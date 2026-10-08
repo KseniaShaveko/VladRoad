@@ -1,0 +1,704 @@
+{% extends "base.html" %}
+
+{% block title %}
+Админ-панель
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section
+    id="adminApp"
+    v-cloak
+    class="min-h-[calc(100vh-84px)] bg-[#F6F8FB] text-[#111827]"
+>
+    <div class="grid min-h-[calc(100vh-84px)] grid-cols-[260px_minmax(0,1fr)] max-[980px]:grid-cols-1">
+
+        <aside class="border-r border-slate-200 bg-white px-5 py-6 shadow-[8px_0_24px_rgba(15,23,42,.04)] max-[980px]:border-r-0 max-[980px]:border-b">
+            <div class="mb-7 flex items-center gap-3">
+                <div class="flex h-12 w-12 items-center justify-center rounded-[18px] bg-[#31B8FF] font-heading text-lg font-black text-white shadow-[0_12px_22px_rgba(49,184,255,.24)]">
+                    VR
+                </div>
+
+                <div>
+                    <h1 class="m-0 font-heading text-[20px] font-black text-[#111827]">
+                        Админ-панель
+                    </h1>
+                    <p class="mt-1 text-sm font-extrabold text-[#31B8FF]">
+                        VladRoad
+                    </p>
+                </div>
+            </div>
+
+            <nav class="grid gap-2 max-[980px]:grid-cols-4 max-[720px]:grid-cols-2">
+                <button
+                    v-for="tab in tabs"
+                    :key="tab.id"
+                    type="button"
+                    class="min-h-11 rounded-2xl px-4 text-left font-heading text-sm font-black transition"
+                    :class="activeTab === tab.id
+                        ? 'bg-[#31B8FF] text-white shadow-[0_10px_20px_rgba(49,184,255,.24)]'
+                        : 'bg-transparent text-slate-600 hover:bg-[#EEF9FF] hover:text-[#1098E7]'"
+                    @click="setTab(tab.id)"
+                >
+                    [[ tab.title ]]
+                </button>
+            </nav>
+
+            <div class="mt-7 rounded-[20px] bg-[#FFF8ED] p-4">
+                <p class="mb-1 text-xs font-black uppercase tracking-[0.16em] text-[#F4A62A]">
+                    Текущий администратор
+                </p>
+                <strong class="text-sm font-black text-[#111827]">
+                    {{ session.get("username", "Администратор") }}
+                </strong>
+            </div>
+        </aside>
+
+        <main class="min-w-0 p-6 max-[720px]:p-4">
+
+            <header class="mb-5 flex items-center justify-between gap-4 max-[760px]:flex-col max-[760px]:items-start">
+                <div>
+                    <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.22em] text-[#31B8FF]">
+                        Управление сайтом
+                    </p>
+                    <h2 class="m-0 font-heading text-4xl font-black text-[#111827] max-[720px]:text-3xl">
+                        [[ currentTitle ]]
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="min-h-11 rounded-2xl border-2 border-[#31B8FF]/35 bg-white px-5 font-heading text-sm font-black text-[#31B8FF] transition hover:bg-[#31B8FF] hover:text-white"
+                    @click="reloadAll"
+                >
+                    Обновить данные
+                </button>
+            </header>
+
+            <section v-show="activeTab === 'overview'">
+                <div class="mb-5 grid grid-cols-4 gap-4 max-[1300px]:grid-cols-2 max-[640px]:grid-cols-1">
+                    <article
+                        v-for="card in overviewCards"
+                        :key="card.key"
+                        class="rounded-[24px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]"
+                    >
+                        <p class="m-0 text-sm font-bold text-slate-500">
+                            [[ card.title ]]
+                        </p>
+                        <strong class="mt-2 block font-heading text-4xl font-black leading-none text-[#31B8FF]">
+                            [[ card.value ]]
+                        </strong>
+                        <span class="mt-2 block text-xs font-semibold text-slate-400">
+                            [[ card.subtitle ]]
+                        </span>
+                    </article>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 max-[900px]:grid-cols-1">
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                            Быстрые действия
+                        </p>
+                        <h3 class="mb-4 font-heading text-2xl font-black text-[#111827]">
+                            Основные разделы
+                        </h3>
+
+                        <div class="grid gap-3">
+                            <button
+                                type="button"
+                                class="min-h-12 rounded-2xl bg-[#EEF9FF] px-4 font-heading text-sm font-black text-[#1098E7] transition hover:bg-[#31B8FF] hover:text-white"
+                                @click="setTab('routes')"
+                            >
+                                Управлять готовыми маршрутами
+                            </button>
+
+                            <button
+                                type="button"
+                                class="min-h-12 rounded-2xl bg-[#EEF9FF] px-4 font-heading text-sm font-black text-[#1098E7] transition hover:bg-[#31B8FF] hover:text-white"
+                                @click="setTab('poi')"
+                            >
+                                Управлять точками интереса
+                            </button>
+
+                            <button
+                                type="button"
+                                class="min-h-12 rounded-2xl bg-[#EEF9FF] px-4 font-heading text-sm font-black text-[#1098E7] transition hover:bg-[#31B8FF] hover:text-white"
+                                @click="setTab('users')"
+                            >
+                                Управлять пользователями
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                            Контроль
+                        </p>
+                        <h3 class="mb-4 font-heading text-2xl font-black text-[#111827]">
+                            Предупреждения
+                        </h3>
+
+                        <div class="grid gap-3">
+                            <p class="rounded-2xl bg-[#EEF9FF] p-4 text-sm font-semibold leading-6 text-slate-600">
+                                В системе должен оставаться минимум один администратор. Если администратор только один, снять с него роль нельзя
+                            </p>
+
+                            <p class="rounded-2xl bg-[#EEF9FF] p-4 text-sm font-semibold leading-6 text-slate-600">
+                                Для готового маршрута желательно указывать изображение в формате <code class="font-black text-[#F4A62A]">img/routes/route1.jpg</code>
+                            </p>
+
+                            <p class="rounded-2xl bg-[#EEF9FF] p-4 text-sm font-semibold leading-6 text-slate-600">
+                                Перед удалением или редактирования POI или готового маршрута проверьте, не используется ли этот объект в уже созданных маршрутах и страниц. Изменнения могут затронуть отображаемую на них информацию
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section v-show="activeTab === 'routes'">
+                <div class="mb-4 grid grid-cols-[minmax(0,1.2fr)_minmax(320px,.8fr)] gap-4 max-[1200px]:grid-cols-1">
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <div class="mb-4 flex items-start justify-between gap-4">
+                            <div>
+                                <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                    Готовые маршруты
+                                </p>
+                                <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                    Создание маршрута
+                                </h3>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="min-h-10 rounded-xl bg-[#31B8FF] px-4 font-heading text-sm font-black text-white transition hover:bg-[#1098E7]"
+                                @click="startRouteCreation"
+                            >
+                                Выбирать точки
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 max-[760px]:grid-cols-1">
+                            <label class="admin-field">
+                                <span>Название маршрута</span>
+                                <input v-model.trim="routeForm.title" type="text" placeholder="Например: Видовая прогулка">
+                            </label>
+
+                            <label class="admin-field">
+                                <span>Картинка</span>
+                                <input type="file" accept="image/*" @change="uploadRouteImage" class="admin-file-input">
+                                <div v-if="routeForm.cover_image" class="admin-image-preview">
+                                    <img :src="getStaticImagePath(routeForm.cover_image)" alt="">
+                                    <span>[[ routeForm.cover_image ]]</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <label class="admin-field">
+                            <span>Описание</span>
+                            <textarea v-model.trim="routeForm.description" placeholder="Краткое описание маршрута"></textarea>
+                        </label>
+
+                        <div class="my-3 grid grid-cols-3 gap-3 max-[760px]:grid-cols-1">
+                            <div class="rounded-2xl bg-[#EEF9FF] p-3">
+                                <span class="block text-xs font-black uppercase text-[#31B8FF]">Точек</span>
+                                <strong class="text-lg font-black text-[#111827]">[[ routePoints.length ]]</strong>
+                            </div>
+
+                            <div class="rounded-2xl bg-[#EEF9FF] p-3">
+                                <span class="block text-xs font-black uppercase text-[#31B8FF]">Дистанция</span>
+                                <strong class="text-lg font-black text-[#111827]">[[ routeDistanceText ]]</strong>
+                            </div>
+
+                            <div class="rounded-2xl bg-[#EEF9FF] p-3">
+                                <span class="block text-xs font-black uppercase text-[#31B8FF]">Время</span>
+                                <strong class="text-lg font-black text-[#111827]">[[ routeDurationText ]]</strong>
+                            </div>
+                        </div>
+
+                        <div class="rounded-[18px] bg-slate-50 p-4">
+                            <div class="mb-2 text-sm font-black text-[#111827]">
+                                Выбранные точки
+                            </div>
+
+                            <ul class="max-h-[130px] list-disc overflow-y-auto pl-5 text-sm leading-6 text-slate-600">
+                                <li v-if="routePoints.length === 0">Точки ещё не выбраны</li>
+                                <li v-for="(point, index) in routePoints" :key="index">
+                                    Точка [[ index + 1 ]]: [[ point.lat.toFixed(6) ]], [[ point.lng.toFixed(6) ]]
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-3 rounded-[18px] bg-slate-50 p-4">
+                            <div class="mb-2 text-sm font-black text-[#111827]">
+                                Типы участков
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                <p v-if="routePoints.length < 2" class="m-0 text-sm text-slate-500">
+                                    Участки появятся после выбора второй точки.
+                                </p>
+
+                                <button
+                                    v-for="(segment, index) in routeSegments"
+                                    :key="index"
+                                    type="button"
+                                    class="min-h-9 rounded-full px-4 text-xs font-black text-white transition hover:-translate-y-0.5"
+                                    :class="segment === 'foot' ? 'bg-emerald-500' : 'bg-[#31B8FF]'"
+                                    @click="toggleRouteSegment(index)"
+                                >
+                                    Участок [[ index + 1 ]]: [[ segment === 'foot' ? 'пешком' : 'авто' ]]
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button type="button" class="admin-primary-action" @click="saveReadyRoute">
+                                Сохранить маршрут
+                            </button>
+
+                            <button type="button" class="admin-danger-action" @click="confirmClearReadyRoute">
+                                Очистить
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                            Превью
+                        </p>
+                        <h3 class="mb-4 font-heading text-2xl font-black text-[#111827]">
+                            Карточка маршрута
+                        </h3>
+
+                        <article class="overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_18px_38px_rgba(15,23,42,.10)]">
+                            <div class="h-[180px] overflow-hidden">
+                                <img :src="routePreviewImage" alt="" class="h-full w-full object-cover">
+                            </div>
+
+                            <div class="p-5">
+                                <p class="mb-2 text-sm font-black text-[#31B8FF]">
+                                    Готовый маршрут
+                                </p>
+
+                                <h4 class="mb-2 font-heading text-xl font-black leading-tight text-[#111827]">
+                                    [[ routeForm.title || 'Название маршрута' ]]
+                                </h4>
+
+                                <p class="text-sm leading-6 text-slate-500">
+                                    [[ routeForm.description || 'Описание появится здесь после ввода.' ]]
+                                </p>
+
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <span class="rounded-full bg-[#31B8FF] px-3 py-2 text-xs font-black text-white">
+                                        [[ routeTransportLabel ]]
+                                    </span>
+
+                                    <span class="rounded-full bg-[#F4A62A] px-3 py-2 text-xs font-black text-white">
+                                        [[ routeDurationText ]]
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                </div>
+
+                <section class="mb-4 rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                    <div class="mb-4 flex items-start justify-between gap-4 max-[760px]:flex-col">
+                        <div>
+                            <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                Карта
+                            </p>
+                            <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                Построение готового маршрута
+                            </h3>
+                        </div>
+
+                        <p class="m-0 rounded-full bg-[#EEF9FF] px-4 py-2 text-sm font-black text-[#1098E7]">
+                            [[ routeMode ? 'Режим выбора точек включён' : 'Режим выбора точек выключен' ]]
+                        </p>
+                    </div>
+
+                    <div class="map-search-box" style="position:relative;margin-bottom:10px;">
+                        <input
+                            type="text"
+                            class="admin-route-search-input"
+                            placeholder="Поиск адреса..."
+                            autocomplete="off"
+                        >
+                        <ul class="map-search-results hidden"></ul>
+                    </div>
+
+                    <div id="adminRouteMap" class="admin-leaflet-map"></div>
+                </section>
+
+                <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                    <div class="mb-4 flex items-start justify-between gap-4">
+                        <div>
+                            <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                Список
+                            </p>
+                            <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                Созданные готовые маршруты
+                            </h3>
+                        </div>
+
+                        <button type="button" class="admin-mini-blue" @click="loadReadyRoutes">
+                            Обновить
+                        </button>
+                    </div>
+
+                    <div class="grid gap-3">
+                        <p v-if="readyRoutes.length === 0" class="admin-empty">
+                            Готовые маршруты пока не созданы.
+                        </p>
+
+                        <article
+                            v-for="route in readyRoutes"
+                            :key="route.id"
+                            class="grid grid-cols-[92px_minmax(0,1fr)_auto] items-center gap-3 rounded-[18px] border border-slate-200 bg-white p-3 max-[680px]:grid-cols-1"
+                        >
+                            <img :src="getStaticImagePath(route.cover_image)" alt="" class="h-[68px] w-[92px] rounded-[14px] object-cover bg-slate-50">
+
+                            <div class="min-w-0">
+                                <h4 class="truncate text-sm font-black text-[#111827]">
+                                    [[ route.title || 'Без названия' ]]
+                                </h4>
+                                <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">
+                                    [[ route.description || 'Без описания' ]]
+                                </p>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button class="admin-text-btn" type="button" @click="previewReadyRoute(route)">
+                                    Открыть
+                                </button>
+
+                                <button class="admin-text-btn danger" type="button" @click="requestDeleteReadyRoute(route)">
+                                    Удалить
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </section>
+
+            <section v-show="activeTab === 'poi'">
+                <div class="mb-4 grid grid-cols-[minmax(0,1.1fr)_minmax(320px,.9fr)] gap-4 max-[1200px]:grid-cols-1">
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                            POI
+                        </p>
+                        <h3 class="mb-4 font-heading text-2xl font-black text-[#111827]">
+                            Добавление и редактирование
+                        </h3>
+
+                        <div class="grid grid-cols-2 gap-3 max-[760px]:grid-cols-1">
+                            <label class="admin-field">
+                                <span>Название</span>
+                                <input v-model.trim="poiForm.name" type="text" placeholder="Название объекта">
+                            </label>
+
+                            <label class="admin-field">
+                                <span>Категория</span>
+                                <select v-model="poiForm.category">
+                                    <option value="attraction">Достопримечательность</option>
+                                    <option value="cafe">Кафе</option>
+                                    <option value="restaurant">Ресторан</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <label class="admin-field">
+                            <span>Описание</span>
+                            <textarea v-model.trim="poiForm.description" placeholder="Описание объекта"></textarea>
+                        </label>
+
+                        <label class="admin-field">
+                            <span>Картинка</span>
+                            <input type="file" accept="image/*" @change="uploadPoiImage" class="admin-file-input">
+                            <div v-if="poiForm.image" class="admin-image-preview">
+                                <img :src="getStaticImagePath(poiForm.image)" alt="">
+                                <span>[[ poiForm.image ]]</span>
+                            </div>
+                        </label>
+
+                        <p class="mb-3 rounded-full bg-[#EEF9FF] px-4 py-2 text-sm font-black text-[#1098E7]">
+                            [[ poiForm.lat && poiForm.lng ? `${poiForm.lat.toFixed(6)}, ${poiForm.lng.toFixed(6)}` : 'Точка не выбрана' ]]
+                        </p>
+
+                        <div class="flex flex-wrap gap-3">
+                            <button class="admin-primary-action" type="button" @click="startPoiSelection">
+                                Выбрать точку
+                            </button>
+
+                            <button class="admin-orange-action" type="button" @click="savePoi">
+                                Сохранить POI
+                            </button>
+
+                            <button class="admin-danger-action" type="button" @click="resetPoiForm">
+                                Сбросить
+                            </button>
+                        </div>
+
+                    </section>
+
+                    <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                        <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                            Фильтр карты
+                        </p>
+                        <h3 class="mb-4 font-heading text-2xl font-black text-[#111827]">
+                            Отображение POI
+                        </h3>
+
+                        <div class="grid gap-3">
+                            <label
+                                v-for="category in poiCategoryOptions"
+                                :key="category.value"
+                                class="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-black text-[#111827]"
+                            >
+                                <input
+                                    type="checkbox"
+                                    class="h-4 w-4 accent-[#31B8FF]"
+                                    :value="category.value"
+                                    v-model="activePoiCategories"
+                                    @change="renderPoiMarkers"
+                                >
+                                [[ category.label ]]
+                            </label>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button type="button" class="admin-mini-blue" @click="selectAllPoiCategories">
+                                Показать все
+                            </button>
+
+                            <button type="button" class="admin-mini-orange" @click="clearPoiCategories">
+                                Скрыть все
+                            </button>
+                        </div>
+
+                        <p class="mt-4 text-sm leading-6 text-slate-500">
+                            Фильтр меняет только отображение объектов на карте. Список POI ниже остаётся доступным.
+                        </p>
+                    </section>
+                </div>
+
+                <section class="mb-4 rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                    <div class="mb-4 flex items-start justify-between gap-4 max-[760px]:flex-col">
+                        <div>
+                            <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                Карта
+                            </p>
+                            <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                Координаты точки интереса
+                            </h3>
+                        </div>
+
+                        <p class="m-0 rounded-full bg-[#EEF9FF] px-4 py-2 text-sm font-black text-[#1098E7]">
+                            [[ poiMode ? 'Режим выбора точки включён' : 'Режим выбора точки выключен' ]]
+                        </p>
+                    </div>
+
+                    <div class="map-search-box" style="position:relative;margin-bottom:10px;">
+                        <input
+                            type="text"
+                            class="admin-route-search-input"
+                            placeholder="Поиск адреса..."
+                            autocomplete="off"
+                        >
+                        <ul class="map-search-results hidden"></ul>
+                    </div>
+
+                    <div id="adminPoiMap" class="admin-leaflet-map"></div>
+                </section>
+
+                <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                    <div class="mb-4 flex items-start justify-between gap-4">
+                        <div>
+                            <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                Объекты
+                            </p>
+                            <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                Список точек интереса
+                            </h3>
+                        </div>
+
+                        <button type="button" class="admin-mini-blue" @click="loadPois">
+                            Обновить
+                        </button>
+                    </div>
+
+                    <div class="grid gap-3">
+                        <p v-if="pois.length === 0" class="admin-empty">
+                            Точки интереса пока не добавлены.
+                        </p>
+
+                        <article
+                            v-for="poi in pois"
+                            :key="poi.id"
+                            class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-[18px] border border-slate-200 bg-white p-3 max-[680px]:grid-cols-1"
+                        >
+                            <div class="min-w-0">
+                                <h4 class="truncate text-sm font-black text-[#111827]">
+                                    [[ poi.name ]]
+                                </h4>
+
+                                <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">
+                                    [[ poi.description || 'Без описания' ]]
+                                </p>
+
+                                <span class="mt-2 inline-flex rounded-full bg-[#EEF9FF] px-3 py-1 text-[11px] font-black text-[#1098E7]">
+                                    [[ getPoiCategoryLabel(poi.category) ]]
+                                </span>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button class="admin-text-btn" type="button" @click="editPoi(poi)">
+                                    Изменить
+                                </button>
+
+                                <button class="admin-text-btn danger" type="button" @click="requestDeletePoi(poi)">
+                                    Удалить
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </section>
+
+            <section v-show="activeTab === 'users'">
+                <section class="rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.06)]">
+                    <div class="mb-4 flex items-start justify-between gap-4 max-[760px]:flex-col">
+                        <div>
+                            <p class="mb-1 font-heading text-xs font-black uppercase tracking-[0.2em] text-[#31B8FF]">
+                                Доступ
+                            </p>
+                            <h3 class="font-heading text-2xl font-black text-[#111827]">
+                                Пользователи
+                            </h3>
+                        </div>
+
+                        <button type="button" class="admin-mini-blue" @click="loadUsers">
+                            Обновить
+                        </button>
+                    </div>
+
+                    <div
+                        v-if="adminCount <= 1"
+                        class="mb-4 rounded-2xl bg-[#FFF8ED] px-4 py-3 text-sm font-bold text-[#9A5B00]"
+                    >
+                        В системе сейчас только один администратор. Снять с него роль нельзя — сначала назначьте другого администратора.
+                    </div>
+
+                    <input
+                        v-model.trim="userSearch"
+                        type="text"
+                        placeholder="Поиск по логину или почте..."
+                        class="mb-4 min-h-11 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm font-bold text-[#111827] outline-none transition focus:border-[#31B8FF] focus:shadow-[0_0_0_4px_rgba(49,184,255,.14)]"
+                    >
+
+                    <div class="overflow-x-auto">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Логин</th>
+                                    <th>Email</th>
+                                    <th>Маршрутов</th>
+                                    <th>Роль</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr v-if="filteredUsers.length === 0">
+                                    <td colspan="6">Пользователи не найдены.</td>
+                                </tr>
+
+                                <tr v-for="user in filteredUsers" :key="user.id">
+                                    <td>[[ user.id ]]</td>
+                                    <td><strong>[[ user.username ]]</strong></td>
+                                    <td>[[ user.email || '—' ]]</td>
+                                    <td>[[ user.routes_count || 0 ]]</td>
+                                    <td>
+                                        <span
+                                            class="inline-flex rounded-full px-3 py-2 text-xs font-black"
+                                            :class="Number(user.is_admin) === 1
+                                                ? 'bg-[#31B8FF] text-white'
+                                                : 'bg-slate-100 text-slate-500'"
+                                        >
+                                            [[ Number(user.is_admin) === 1 ? 'Администратор' : 'Пользователь' ]]
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button
+                                            v-if="Number(user.is_admin) !== 1"
+                                            type="button"
+                                            class="admin-mini-blue"
+                                            @click="makeAdmin(user)"
+                                        >
+                                            Назначить
+                                        </button>
+
+                                        <button
+                                            v-else
+                                            type="button"
+                                            class="admin-mini-orange"
+                                            @click="requestRemoveAdmin(user)"
+                                        >
+                                            Снять роль
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+        </main>
+    </div>
+
+    <div class="admin-toast-container">
+        <div
+            v-for="toast in toasts"
+            :key="toast.id"
+            class="admin-toast"
+            :class="toast.type"
+        >
+            [[ toast.message ]]
+        </div>
+    </div>
+
+    <div v-if="confirm.visible" class="admin-confirm">
+        <div class="admin-confirm-box">
+            <h3>[[ confirm.title ]]</h3>
+            <p>[[ confirm.text ]]</p>
+
+            <div class="admin-confirm-actions">
+                <button type="button" class="admin-confirm-cancel" @click="closeConfirm(false)">
+                    Отмена
+                </button>
+
+                <button type="button" class="admin-confirm-accept" @click="closeConfirm(true)">
+                    Подтвердить
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    window.ADMIN_CURRENT_USER_ID = {{ session.get("user_id") | tojson }};
+</script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+{% endblock %}

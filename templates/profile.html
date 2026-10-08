@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block content %}
+
+<section
+    id="profileApp"
+    class="min-h-[calc(100vh-120px)] bg-slate-50 px-4 py-8 md:px-8"
+    v-cloak
+>
+    <div class="mx-auto max-w-[1500px]">
+
+        <section class="rounded-[32px] bg-white p-6 shadow-[0_18px_38px_rgba(15,23,42,0.06)] md:p-10">
+            <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                <div class="flex min-w-0 flex-col gap-5 md:flex-row md:items-center">
+                    <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-[#eef9ff] text-4xl font-black text-[#31b8ff] shadow-inner">
+                        <span v-text="avatarLetter"></span>
+                    </div>
+
+                    <div class="min-w-0">
+                        <h1
+                            class="truncate font-heading text-4xl font-black leading-tight text-slate-950 md:text-5xl"
+                            v-text="username"
+                        ></h1>
+
+                        <p class="mt-2 text-base font-semibold text-slate-500">
+                            <span v-if="email" v-text="email"></span>
+                            <span v-else>Почта не указана</span>
+                        </p>
+                    </div>
+                </div>
+
+                <a
+                    href="/edit_profile"
+                    class="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 font-heading text-sm font-extrabold text-slate-900 transition hover:border-[#31b8ff] hover:text-[#31b8ff]"
+                >
+                    Редактировать профиль
+                </a>
+            </div>
+
+            <div class="mt-9 grid gap-5 md:grid-cols-2">
+                <div class="rounded-[24px] bg-slate-50 p-6">
+                    <p class="font-heading text-4xl font-black text-slate-950" v-text="createdRoutes.length"></p>
+                    <p class="mt-2 text-base font-semibold text-slate-600">Созданные маршруты</p>
+                </div>
+
+                <div class="rounded-[24px] bg-slate-50 p-6">
+                    <p class="font-heading text-4xl font-black text-slate-950" v-text="favoriteRoutes.length"></p>
+                    <p class="mt-2 text-base font-semibold text-slate-600">Избранные маршруты</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-8 rounded-[28px] bg-white p-3 shadow-[0_12px_28px_rgba(15,23,42,0.04)] md:p-4">
+            <div class="grid grid-cols-2 gap-2 rounded-[22px] bg-slate-50 p-2">
+                <button
+                    type="button"
+                    class="rounded-[18px] px-4 py-4 font-heading text-sm font-black transition"
+                    :class="activeTab === 'created' ? 'bg-[#31b8ff] text-white shadow-[0_12px_20px_rgba(49,184,255,0.25)]' : 'text-slate-700 hover:bg-white'"
+                    @click="activeTab = 'created'"
+                >
+                    Мои маршруты
+                </button>
+
+                <button
+                    type="button"
+                    class="rounded-[18px] px-4 py-4 font-heading text-sm font-black transition"
+                    :class="activeTab === 'favorite' ? 'bg-[#f4a62a] text-white shadow-[0_12px_20px_rgba(244,166,42,0.25)]' : 'text-slate-700 hover:bg-white'"
+                    @click="activeTab = 'favorite'"
+                >
+                    Избранные маршруты
+                </button>
+            </div>
+        </section>
+
+        <section v-show="activeTab === 'created'" class="mt-8">
+            <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h2 class="font-heading text-3xl font-black text-slate-950">
+                        Мои маршруты
+                    </h2>
+
+                    <p class="mt-2 text-base font-medium text-slate-600">
+                        Маршруты, которые были созданы и сохранены в личном кабинете.
+                    </p>
+                </div>
+
+                <a
+                    href="/map"
+                    class="inline-flex h-12 items-center justify-center rounded-2xl bg-[#31b8ff] px-7 font-heading text-sm font-black text-white shadow-[0_12px_22px_rgba(49,184,255,0.24)] transition hover:bg-[#1098e7]"
+                >
+                    Новый маршрут
+                </a>
+            </div>
+
+            <div v-if="createdRoutes.length" class="grid gap-5">
+                <article
+                    v-for="route in createdRoutes"
+                    :key="'created-' + route.id"
+                    class="rounded-[26px] bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,0.05)]"
+                >
+                    <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                        <div class="min-w-0">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <h3
+                                    class="max-w-full truncate font-heading text-2xl font-black text-slate-950"
+                                    :title="route.name"
+                                    v-text="route.name"
+                                ></h3>
+
+                                <span class="rounded-full bg-[#eef9ff] px-4 py-1.5 text-xs font-black text-[#31b8ff]">
+                                    Готовый маршрут
+                                </span>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap gap-3">
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.points_count"></span> точек
+                                </span>
+
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.distance"></span> км
+                                </span>
+
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.duration"></span> мин
+                                </span>
+
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.transport"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex shrink-0 flex-wrap gap-3">
+                            <button
+                                type="button"
+                                class="inline-flex h-11 items-center justify-center rounded-2xl bg-[#31b8ff] px-5 font-heading text-sm font-black text-white transition hover:bg-[#1098e7]"
+                                @click="openRoute(route)"
+                            >
+                                Открыть
+                            </button>
+
+                            <button
+                                type="button"
+                                class="inline-flex h-11 items-center justify-center rounded-2xl bg-[#f4a62a] px-5 font-heading text-sm font-black text-white shadow-[0_10px_18px_rgba(244,166,42,0.20)] transition hover:bg-[#ea9a1b]"
+                                @click="toggleFavorite(route)"
+                            >
+                                <span v-text="route.is_favorite ? 'Убрать из избранного' : 'В избранное'"></span>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="inline-flex h-11 items-center justify-center rounded-2xl bg-red-500 px-5 font-heading text-sm font-black text-white shadow-[0_10px_18px_rgba(239,68,68,0.18)] transition hover:bg-red-600"
+                                @click="deleteRoute(route)"
+                            >
+                                Удалить
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div
+                v-else
+                class="rounded-[28px] border border-dashed border-[#31b8ff]/35 bg-white p-10 text-center"
+            >
+                <p class="font-heading text-xl font-black text-slate-950">
+                    У вас пока нет созданных маршрутов.
+                </p>
+
+                <p class="mt-2 text-slate-500">
+                    Перейдите на карту и сохраните первый маршрут.
+                </p>
+            </div>
+        </section>
+
+        <section v-show="activeTab === 'favorite'" class="mt-8">
+            <div class="mb-6">
+                <h2 class="font-heading text-3xl font-black text-slate-950">
+                    Избранные маршруты
+                </h2>
+
+                <p class="mt-2 text-base font-medium text-slate-600">
+                    Здесь отображаются маршруты, добавленные в избранное.
+                </p>
+            </div>
+
+            <div v-if="favoriteRoutes.length" class="grid gap-5">
+                <article
+                    v-for="route in favoriteRoutes"
+                    :key="'favorite-' + route.id"
+                    class="rounded-[26px] bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,0.05)]"
+                >
+                    <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                        <div class="min-w-0">
+                            <h3
+                                class="truncate font-heading text-2xl font-black text-slate-950"
+                                :title="route.name"
+                                v-text="route.name"
+                            ></h3>
+
+                            <div class="mt-4 flex flex-wrap gap-3">
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.points_count"></span> точек
+                                </span>
+
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.distance"></span> км
+                                </span>
+
+                                <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
+                                    <span v-text="route.duration"></span> мин
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex shrink-0 flex-wrap gap-3">
+                            <button
+                                type="button"
+                                class="inline-flex h-11 items-center justify-center rounded-2xl bg-[#31b8ff] px-5 font-heading text-sm font-black text-white transition hover:bg-[#1098e7]"
+                                @click="openRoute(route)"
+                            >
+                                Открыть
+                            </button>
+
+                            <button
+                                type="button"
+                                class="inline-flex h-11 items-center justify-center rounded-2xl bg-[#f4a62a] px-5 font-heading text-sm font-black text-white shadow-[0_10px_18px_rgba(244,166,42,0.20)] transition hover:bg-[#ea9a1b]"
+                                @click="toggleFavorite(route)"
+                            >
+                                Убрать из избранного
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div
+                v-else
+                class="rounded-[28px] border border-dashed border-[#f4a62a]/45 bg-white p-10 text-center"
+            >
+                <p class="font-heading text-xl font-black text-slate-950">
+                    Избранных маршрутов пока нет.
+                </p>
+
+                <p class="mt-2 text-slate-500">
+                    Добавляйте маршруты в избранное, чтобы быстро возвращаться к ним.
+                </p>
+            </div>
+        </section>
+
+    </div>
+</section>
+
+<script>
+    window.PROFILE_INITIAL_DATA = {
+        username: {{ (username if username is defined else session.get('username', 'Пользователь')) | tojson }},
+        email: {{ (email if email is defined else session.get('email', '')) | tojson }},
+        createdRoutes: {{ (created_routes if created_routes is defined else routes if routes is defined else []) | tojson }},
+        favoriteRoutes: {{ (favorite_routes if favorite_routes is defined else favorites if favorites is defined else []) | tojson }}
+    };
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}

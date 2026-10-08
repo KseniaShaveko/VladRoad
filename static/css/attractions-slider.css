@@ -1,0 +1,427 @@
+/* ===================================
+   ATTRACTIONS SLIDER
+=================================== */
+
+.attractions-section {
+
+    padding:
+        40px 0
+        120px;
+
+    overflow: hidden;
+}
+
+/* ===================================
+   TOP TEXT
+=================================== */
+
+.attractions-top {
+
+    margin-bottom: 55px;
+}
+
+.attractions-text {
+
+    max-width: 620px;
+}
+
+.attractions-text h2 {
+
+    font-size: 48px;
+    line-height: 1.2;
+
+    color: #222;
+
+    margin-bottom: 18px;
+}
+
+.attractions-text span {
+
+    color: #31b8ff;
+}
+
+.attractions-text p {
+
+    font-size: 20px;
+    line-height: 1.7;
+
+    color: #666;
+}
+
+/* ===================================
+   SWIPER
+=================================== */
+
+.attractions-swiper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding:
+        40px 0;
+}
+
+/* ===================================
+   SLIDE
+=================================== */
+
+.attraction-slide {
+    position: relative;
+    width: 540px;
+    height: 340px;
+    overflow: hidden;
+    border-radius: 24px;
+    flex-shrink: 0;
+
+    transition:
+        transform 0.7s ease,
+        opacity 0.7s ease,
+        filter 0.7s ease,
+        box-shadow 0.7s ease;
+
+    /* DEFAULT */
+    opacity: 0.28;
+    transform: scale(0.74);
+    z-index: 1;
+}
+
+/* IMAGE */
+
+.attraction-slide img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition:
+        transform 0.55s ease,
+        filter 0.55s ease;
+}
+
+/* ===================================
+   ACTIVE SLIDE
+=================================== */
+
+.attractions-swiper .swiper-slide-active {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+    z-index: 6;
+    box-shadow:
+        0 24px 45px rgba(0,0,0,0.18);
+}
+
+/* ===================================
+   SIDE SLIDES
+=================================== */
+
+.attractions-swiper .swiper-slide-prev,
+.attractions-swiper .swiper-slide-next {
+    opacity: 0.68;
+    transform: scale(0.86);
+    filter: blur(1px);
+    z-index: 3;
+}
+
+/* ===================================
+   OVERLAY
+=================================== */
+
+.attraction-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    padding: 34px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,0.82),
+            rgba(0,0,0,0.18),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity 0.45s ease;
+}
+
+/* TITLE */
+
+.attraction-overlay h3 {
+
+    color: white;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    transform: translateY(14px);
+
+    transition:
+        transform 0.45s ease;
+}
+
+/* ===================================
+   ACTIVE TITLE
+=================================== */
+
+.attractions-swiper .swiper-slide-active .attraction-overlay {
+
+    opacity: 1;
+}
+
+.attractions-swiper .swiper-slide-active .attraction-overlay h3 {
+
+    transform: translateY(0);
+}
+
+/* ===================================
+   HOVER
+=================================== */
+
+.attraction-slide:hover img {
+
+    transform: scale(1.06);
+
+    filter: brightness(0.72);
+}
+
+.attraction-slide:hover .attraction-overlay {
+
+    opacity: 1;
+}
+
+.attraction-slide:hover .attraction-overlay h3 {
+
+    transform: translateY(0);
+}
+
+/* ===================================
+   BUTTONS
+=================================== */
+
+.attractions-swiper .attractions-button-prev,
+.attractions-swiper .attractions-button-next {
+
+    width: 64px;
+    height: 64px;
+
+    position: absolute;
+    z-index: 20;
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.92);
+
+    box-shadow:
+        0 10px 22px rgba(0,0,0,0.12);
+
+    color: #31b8ff;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+/* HOVER */
+
+.attractions-swiper .attractions-button-prev:hover,
+.attractions-swiper .attractions-button-next:hover {
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+
+    background: white;
+}
+
+/* ICONS */
+
+.attractions-swiper .attractions-button-prev::before,
+.attractions-swiper .attractions-button-next::before {
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.attractions-swiper .attractions-button-prev,
+.attractions-swiper .attractions-button-next {
+    border: none;
+    cursor: pointer;
+}
+
+.attractions-swiper .attractions-button-prev::before {
+    content: "‹";
+}
+
+.attractions-swiper .attractions-button-next::before {
+    content: "›";
+}
+
+/* POSITIONS */
+
+.attractions-swiper .attractions-button-prev {
+
+    left: 20px;
+}
+
+.attractions-swiper .attractions-button-next {
+
+    right: 20px;
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width: 1200px) {
+
+    .attraction-slide {
+
+        width: 460px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .attractions-text h2 {
+
+        font-size: 38px;
+    }
+
+    .attractions-text p {
+
+        font-size: 18px;
+    }
+
+    .attraction-slide {
+
+        width: 340px;
+        height: 240px;
+    }
+
+    .attraction-overlay h3 {
+
+        font-size: 28px;
+    }
+
+    .attractions-swiper .attractions-button-prev,
+    .attractions-swiper .attractions-button-next {
+
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .attractions-section {
+
+        padding-bottom: 80px;
+    }
+
+    .attractions-top {
+
+        margin-bottom: 35px;
+    }
+
+    .attractions-text h2 {
+
+        font-size: 30px;
+    }
+
+    .attractions-text p {
+
+        font-size: 16px;
+    }
+
+    .attraction-slide {
+
+        width: 92vw;
+        height: 220px;
+
+        border-radius: 18px;
+    }
+
+    .attraction-overlay {
+
+        padding: 24px;
+    }
+
+    .attraction-overlay h3 {
+
+        font-size: 24px;
+    }
+
+    .attractions-swiper .attractions-button-prev,
+    .attractions-swiper .attractions-button-next {
+
+        display: none;
+    }
+}
+
+/* Защита от дублирования стандартных кнопок Swiper в блоке достопримечательностей */
+.attractions-swiper > .swiper-button-prev,
+.attractions-swiper > .swiper-button-next {
+    display: none !important;
+}
+
+/* Тёмная тема главного слайдера */
+html[data-theme="dark"] .attractions-swiper .attractions-button-prev,
+html[data-theme="dark"] .attractions-swiper .attractions-button-next,
+body.dark-theme .attractions-swiper .attractions-button-prev,
+body.dark-theme .attractions-swiper .attractions-button-next,
+.dark .attractions-swiper .attractions-button-prev,
+.dark .attractions-swiper .attractions-button-next {
+    background: rgba(255, 255, 255, 0.95);
+    color: #31b8ff;
+}
+
+/* Dynamic data states */
+.home-dynamic-empty {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(49, 184, 255, 0.35);
+    border-radius: 22px;
+    background: rgba(49, 184, 255, 0.06);
+    color: #64748b;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.attractions-swiper.is-empty,
+.attractions-swiper.has-one-slide {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.attractions-swiper.is-empty .attractions-button-prev,
+.attractions-swiper.is-empty .attractions-button-next,
+.attractions-swiper.has-one-slide .attractions-button-prev,
+.attractions-swiper.has-one-slide .attractions-button-next {
+    display: none;
+}
+
+html[data-theme="dark"] .home-dynamic-empty {
+    border-color: rgba(49, 184, 255, 0.25);
+    background: rgba(49, 184, 255, 0.08);
+    color: #dbeafe;
+}

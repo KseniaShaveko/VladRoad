@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VladRoad</title>
+
+    <!-- Иконка сайта во вкладке браузера.
+         Используется тот же файл, что и в лог во вкладке браузера.
+         Используется тот же файл, что и в логотипе сайта. -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}?v=5">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}?v=5">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo.png') }}?v=5">
+
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("vladroad-theme") || "light";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        })();
+    </script>
+
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "Arial", "sans-serif"],
+                        heading: ["Montserrat", "Arial", "sans-serif"],
+                        ui: ["Inter", "Arial", "sans-serif"]
+                    },
+                    colors: {
+                        brandBlue: "#31B8FF",
+                        brandBlueHover: "#1098e7",
+                        brandOrange: "#F4A62A",
+                        brandOrangeHover: "#EA9A1B",
+                        brandDark: "#111827",
+                        brandMuted: "#6B7280"
+                    },
+                    boxShadow: {
+                        soft: "0 12px 35px rgba(15, 23, 42, 0.10)"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@11/swiper-bundle.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/page-decor.css') }}">
+
+    {% block extra_css %}{% endblock %}
+    {% block routes_css %}{% endblock %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-theme.css') }}">
+</head>
+
+<body class="page-{{ request.endpoint|default('default') }}">
+
+<header class="header">
+    <div class="container header-container">
+
+        <a href="/" class="header-left">
+            <img
+                src="{{ url_for('static', filename='img/logo.png') }}"
+                alt="VladRoad"
+                class="logo-img"
+            >
+
+            <div class="logo-text">
+                <span class="brand-name">VladRoad</span>
+                <span class="brand-slogan">Откройте Владивосток по-новому</span>
+            </div>
+        </a>
+
+        <nav class="nav">
+            <a href="/" class="{% if request.path == '/' %}active-link{% endif %}">
+                Главная
+            </a>
+
+            <a href="/about" class="{% if request.path == '/about' %}active-link{% endif %}">
+                О нас
+            </a>
+
+            <a href="/ready_tours" class="{% if request.path == '/ready_tours' %}active-link{% endif %}">
+                Готовые маршруты
+            </a>
+
+            <a href="/map" class="header-map-btn">
+                    Создать маршрут
+            </a>
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Переключить тему"
+                title="Переключить тему"
+            >
+                <span class="theme-toggle-track">
+                    <span class="theme-toggle-thumb">
+
+                        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 5.2a.9.9 0 0 0 .9-.9V2.7a.9.9 0 1 0-1.8 0v1.6a.9.9 0 0 0 .9.9Zm0 13.6a.9.9 0 0 0-.9.9v1.6a.9.9 0 1 0 1.8 0v-1.6a.9.9 0 0 0-.9-.9ZM5.64 6.91a.9.9 0 0 0 1.27-1.27L5.78 4.51a.9.9 0 1 0-1.27 1.27l1.13 1.13Zm11.45 10.18a.9.9 0 0 0 0 1.27l1.13 1.13a.9.9 0 0 0 1.27-1.27l-1.13-1.13a.9.9 0 0 0-1.27 0ZM4.3 11.1H2.7a.9.9 0 1 0 0 1.8h1.6a.9.9 0 1 0 0-1.8Zm17 0h-1.6a.9.9 0 1 0 0 1.8h1.6a.9.9 0 1 0 0-1.8ZM4.51 18.22a.9.9 0 1 0 1.27 1.27l1.13-1.13a.9.9 0 0 0-1.27-1.27l-1.13 1.13Zm13.85-11.31 1.13-1.13a.9.9 0 1 0-1.27-1.27l-1.13 1.13a.9.9 0 0 0 1.27 1.27ZM12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2Z"/>
+                        </svg>
+
+                        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M20.2 14.55a.86.86 0 0 0-.95-.16 7.48 7.48 0 0 1-3.05.65 7.3 7.3 0 0 1-7.3-7.3c0-1.07.22-2.1.65-3.05a.86.86 0 0 0-1.11-1.13A9.4 9.4 0 1 0 20.44 15.5a.86.86 0 0 0-.24-.95Z"/>
+                        </svg>
+
+                    </span>
+                </span>
+            </button>
+
+            {% if session.get('user_id') %}
+
+                
+
+                <a href="/profile" class="header-profile-btn {% if request.path == '/profile' %}active-profile-btn{% endif %}">
+                    {{ session.get('username', 'Профиль') }}
+                </a>
+
+                <a href="/logout" class="header-logout-btn">
+                    Выйти
+                </a>
+
+            {% else %}
+
+                <a href="/login" class="{% if request.path == '/login' %}active-link{% endif %}">
+                    Войти
+                </a>
+
+                <a href="/register" class="register-btn">
+                    Регистрация
+                </a>
+
+            {% endif %}
+
+            {% if session.get('is_admin') %}
+                <a href="/admin" class="header-map-btn">
+                    Админ-панель
+                </a>
+            {% endif %}
+        </nav>
+
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+{% set pages_without_cta = [
+    '/login',
+    '/register',
+    '/map',
+    '/profile',
+    '/edit_profile',
+    '/edit-account',
+    '/edit_account',
+    '/account/edit',
+    '/settings',
+    '/admin'
+] %}
+
+{% if request.path not in pages_without_cta %}
+    {% include "components/cta_block.html" %}
+{% endif %}
+
+<footer class="footer">
+    <div class="container footer-container">
+
+        <div class="footer-brand-block">
+            <div class="footer-brand-row">
+                <img
+                    src="{{ url_for('static', filename='img/logo.png') }}"
+                    alt="VladRoad"
+                    class="footer-logo"
+                >
+
+                <div>
+                    <p class="footer-brand-name">VladRoad</p>
+                    <p class="footer-brand-subtitle">
+                        туристический навигатор по Владивостоку
+                    </p>
+                </div>
+            </div>
+
+            <p class="footer-description">
+                Сайт помогает находить интересные места, просматривать готовые маршруты
+                и создавать собственные прогулки по городу.
+            </p>
+
+            <p class="footer-copy">
+                Дипломный проект VladRoad 2026
+            </p>
+        </div>
+
+        <div class="footer-column">
+            <h4>Разделы</h4>
+            <a href="/">Главная</a>
+            <a href="/about">О нас</a>
+            <a href="/ready_tours">Готовые маршруты</a>
+            <a href="/map">Карта</a>
+        </div>
+
+        <div class="footer-column">
+            <h4>Аккаунт</h4>
+
+            {% if session.get('user_id') %}
+                <a href="/profile">Профиль</a>
+                <a href="/logout">Выйти</a>
+            {% else %}
+                <a href="/login">Войти</a>
+                <a href="/register">Регистрация</a>
+            {% endif %}
+        </div>
+
+        <div class="footer-column">
+            <h4>Контакты</h4>
+            <p>Владивосток</p>
+            <p>Туристический веб-сервис</p>
+        </div>
+
+    </div>
+</footer>
+
+<script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
+
+{% block extra_js %}{% endblock %}
+{% block routes_js %}{% endblock %}
+
+<script>
+    (function () {
+        const STORAGE_KEY = "vladroad-theme";
+        const root = document.documentElement;
+        const themeColorMeta = document.getElementById("theme-color-meta");
+
+        function setTheme(theme) {
+            root.setAttribute("data-theme", theme);
+            localStorage.setItem(STORAGE_KEY, theme);
+
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute(
+                    "content",
+                    theme === "dark" ? "#111722" : "#ffffff"
+                );
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("themeToggle");
+
+            const savedTheme = localStorage.getItem(STORAGE_KEY) || "light";
+            setTheme(savedTheme);
+
+            if (!toggle) {
+                return;
+            }
+
+            toggle.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                const currentTheme = root.getAttribute("data-theme") || "light";
+                const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+                setTheme(nextTheme);
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>

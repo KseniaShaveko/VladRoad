@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Мои маршруты</h2>
+
+{% if routes %}
+
+    <ul>
+    {% for r in routes %}
+        <li>
+            <b>{{ r[1] }}</b><br>
+            {{ r[2] }} → {{ r[3] }}<br>
+            <small>{{ r[4] }}</small>
+        </li>
+        <br>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>У вас пока нет маршрутов</p>
+{% endif %}
+
+{% endblock %}

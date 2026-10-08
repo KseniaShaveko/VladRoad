@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Построение маршрута (Владивосток)</h2>
+
+<h3>Фильтр мест</h3>
+
+<label><input type="checkbox" id="filterCafe" checked> ☕ Кафе</label>
+<label><input type="checkbox" id="filterRestaurant" checked> 🍽 Рестораны</label>
+<label><input type="checkbox" id="filterAttraction" checked> 🏛 Достопримечательности</label>
+
+<div id="map" style="height: 500px;"></div>
+
+<p>Точка A: <span id="pointA">не выбрана</span></p>
+<p>Точка B: <span id="pointB">не выбрана</span></p>
+
+<div id="segments"></div>
+
+<button onclick="clearRoute()">Очистить маршрут</button>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+<p id="routeInfo">Информация о маршруте появится здесь</p>
+
+<label>Тип маршрута:</label>
+<select id="routeType">
+    <option value="driving">🚗 Авто</option>
+    <option value="foot">🚶 Пешком</option>
+</select>
+
+{% if is_logged_in %}
+
+<input type="text" id="routeName" placeholder="Название маршрута">
+<button onclick="saveRoute()">💾 Сохранить маршрут</button>
+
+<h3>Мои маршруты</h3>
+<ul id="routeList"></ul>
+
+{% else %}
+
+<p style="color: #888;">
+    🔒 Чтобы сохранить маршрут, пожалуйста,
+    <a href="/login">войдите</a> или
+    <a href="/register">зарегистрируйтесь</a>
+</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/attractions-slider.css') }}"
+>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/decor-home.css') }}"
+>
+{% endblock %}
+
+{% block routes_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/routes-slider.css') }}"
+>
+{% endblock %}
+
+{% block extra_js %}
+<script
+    src="{{ url_for('static', filename='js/attractions-slider.js') }}"
+></script>
+{% endblock %}
+
+{% block routes_js %}
+<script
+    src="{{ url_for('static', filename='js/routes-slider.js') }}"
+></script>
+{% endblock %}
+
+{% block content %}
+
+<div id="homeDecorApp" v-cloak>
+
+<section class="relative overflow-hidden">
+    <div class="relative h-[380px] overflow-hidden md:h-[470px] lg:h-[540px]">
+        <img
+            src="{{ url_for('static', filename='img/hero/main-page-banner.jpg') }}"
+            alt="Владивосток"
+            class="h-full w-full object-cover"
+        >
+
+        <div class="absolute inset-0 bg-black/45"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center px-6 text-center">
+            <div>
+                <h1 class="text-5xl font-bold uppercase text-white md:text-6xl lg:text-7xl">
+                    Главная
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-home-section relative overflow-hidden py-20 md:py-24">
+    <div class="decor-line decor-line-about">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-top.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 lg:px-8">
+        <div class="mx-auto mb-14 max-w-[980px] text-center">
+            <h2 class="text-3xl font-bold leading-tight text-brandDark md:text-4xl lg:text-[44px]">
+                Приглашаем прогуляться по
+                <span class="text-brandBlue">Владивостоку</span>
+                — городу, где каждый уголок дышит историей и культурой
+            </h2>
+        </div>
+
+        <div class="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+                <div class="overflow-hidden rounded-[28px] shadow-soft">
+                    <img
+                        src="{{ url_for('static', filename='img/city/vladivostok-main.jpg') }}"
+                        alt="Владивосток"
+                        class="h-[360px] w-full object-cover md:h-[430px]"
+                    >
+                </div>
+
+                <p class="mt-5 text-center text-sm font-medium text-brandMuted">
+                    Почти с каждой точки открывается удивительный вид
+                </p>
+            </div>
+
+            <div class="space-y-5 text-[17px] leading-8 text-brandMuted">
+                <p>
+                    Владивосток — один из самых необычных городов России,
+                    расположенный на берегу Японского моря.
+                </p>
+
+                <p>
+                    Здесь современные районы, мосты и набережные сочетаются
+                    с историческими улицами, морской атмосферой и культурой
+                    Дальнего Востока.
+                </p>
+
+                <p>
+                    Город славится живописными видами, сопками, морскими
+                    пейзажами и уникальной архитектурой.
+                </p>
+
+                <p>
+                    Исследуйте Владивосток через готовые маршруты или создайте
+                    собственное путешествие по любимым местам.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="attractions-home-section relative overflow-hidden py-20 md:py-24">
+    <div class="decor-line decor-line-places">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-places.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 lg:px-8">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold leading-tight text-brandDark md:text-5xl">
+                На что
+                <span class="text-brandOrange">взглянуть?</span>
+            </h2>
+
+            <p class="mt-4 max-w-[520px] text-base leading-7 text-brandMuted">
+                Выберите интересное место — и откройте его на карте.
+            </p>
+        </div>
+
+        <div
+            class="swiper attractions-swiper"
+            data-pois-url="/get_pois"
+            data-map-url="/map"
+            data-static-base="{{ url_for('static', filename='') }}"
+        >
+            <div class="swiper-wrapper" id="homeAttractionsWrapper"></div>
+
+            <div class="home-dynamic-empty attractions-empty" hidden>
+                Достопримечательности пока не добавлены.
+            </div>
+
+            <button type="button" class="attractions-button-prev" aria-label="Предыдущая достопримечательность"></button>
+            <button type="button" class="attractions-button-next" aria-label="Следующая достопримечательность"></button>
+        </div>
+    </div>
+</section>
+
+<section class="home-routes-section relative overflow-hidden">
+    <div class="decor-line decor-line-routes">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-routes.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="relative z-10 mx-auto grid w-full max-w-[1400px] items-center gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:px-8">
+        <div class="home-routes-slider">
+            <div
+                class="swiper home-routes-swiper"
+                data-ready-routes-url="/get_ready_routes"
+                data-map-url="/map"
+                data-static-base="{{ url_for('static', filename='') }}"
+            >
+                <div class="swiper-wrapper" id="homeRoutesWrapper"></div>
+
+                <div class="home-dynamic-empty routes-empty" hidden>
+                    Готовые маршруты пока не добавлены.
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="home-routes-button-prev"
+                aria-label="Предыдущий маршрут"
+            ></button>
+
+            <button
+                type="button"
+                class="home-routes-button-next"
+                aria-label="Следующий маршрут"
+            ></button>
+        </div>
+
+        <div class="home-routes-info">
+            <p class="home-routes-subtitle">
+                Предложения
+            </p>
+
+            <h2 class="home-routes-title">
+                Наши<br>
+                маршруты
+            </h2>
+
+            <a
+                href="/ready_tours"
+                class="home-routes-button"
+            >
+                Посмотреть больше
+            </a>
+        </div>
+    </div>
+</section>
+</div>
+
+{% endblock %}

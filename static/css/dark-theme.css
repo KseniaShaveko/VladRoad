@@ -1,0 +1,1249 @@
+.theme-toggle {
+    position: relative;
+    z-index: 100;
+    display: inline-flex;
+    width: 64px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.theme-toggle-track {
+    position: relative;
+    display: flex;
+    width: 64px;
+    height: 34px;
+    align-items: center;
+    border-radius: 999px;
+    background: rgba(244, 166, 42, 0.16);
+    border: 2px solid rgba(244, 166, 42, 0.55);
+    transition: 0.25s ease;
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--orange);
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(244, 166, 42, 0.35);
+    transition: left 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.theme-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+}
+
+.theme-icon-sun {
+    display: block;
+}
+
+.theme-icon-moon {
+    display: none;
+}
+
+.theme-toggle:hover .theme-toggle-thumb {
+    transform: scale(1.06);
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --dark-bg: #111722;
+    --dark-bg-deep: #0d1320;
+    --dark-bg-soft: #151c29;
+
+    --dark-panel: #1a2332;
+    --dark-panel-soft: #202b3d;
+    --dark-card: #1f2a3b;
+    --dark-card-light: #26344a;
+
+    --dark-text: #f4f7ff;
+    --dark-text-soft: #d4deef;
+    --dark-muted: #a8b5ca;
+
+    --dark-border: rgba(139, 164, 196, 0.32);
+
+    --dark-blue: #38bdf8;
+    --dark-blue-hover: #67d4ff;
+    --dark-orange: #f4a62a;
+    --dark-orange-hover: #ffba55;
+
+    --dark-red: #fb7185;
+    --dark-green: #86efac;
+    --dark-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] .theme-toggle-track {
+    background: rgba(49, 184, 255, 0.14);
+    border-color: rgba(49, 184, 255, 0.6);
+}
+
+html[data-theme="dark"] .theme-toggle-thumb {
+    left: 33px;
+    background: var(--dark-blue);
+    color: #07111f;
+    box-shadow: 0 6px 14px rgba(56, 189, 248, 0.32);
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+    display: none;
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+    display: block;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] main,
+html[data-theme="dark"] section {
+    color: var(--dark-text);
+}
+
+html[data-theme="dark"] .header {
+    background: #151b27 !important;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.24) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36) !important;
+}
+
+html[data-theme="dark"] .header::after {
+    background: linear-gradient(
+        90deg,
+        var(--dark-blue),
+        var(--dark-orange),
+        var(--dark-blue)
+    ) !important;
+    opacity: 0.95;
+}
+
+html[data-theme="dark"] .logo-img {
+    filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.18));
+}
+
+html[data-theme="dark"] .brand-name,
+html[data-theme="dark"] .nav a,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .brand-slogan,
+html[data-theme="dark"] .active-link,
+html[data-theme="dark"] .nav a:hover {
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .active-link::after {
+    background: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .register-btn,
+html[data-theme="dark"] .routes-button,
+html[data-theme="dark"] .search-button,
+html[data-theme="dark"] .auth-tab.active,
+html[data-theme="dark"] .map-page .btn-primary,
+html[data-theme="dark"] .map-page .btn-open,
+html[data-theme="dark"] .map-page .btn-save {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(56, 189, 248, 0.24) !important;
+}
+
+html[data-theme="dark"] .header-map-btn,
+html[data-theme="dark"] .cta-button,
+html[data-theme="dark"] .auth-submit,
+html[data-theme="dark"] .map-page .btn-warning,
+html[data-theme="dark"] .map-page .btn-rename {
+    background: linear-gradient(135deg, #d88918, var(--dark-orange)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(244, 166, 42, 0.24) !important;
+}
+
+html[data-theme="dark"] .header-profile-btn,
+html[data-theme="dark"] .routes-more-button,
+html[data-theme="dark"] .auth-secondary,
+html[data-theme="dark"] .map-page .btn-outline,
+html[data-theme="dark"] .map-page .btn-favorite {
+    background: rgba(56, 189, 248, 0.1) !important;
+    border-color: rgba(56, 189, 248, 0.52) !important;
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .header-profile-btn:hover,
+html[data-theme="dark"] .active-profile-btn,
+html[data-theme="dark"] .routes-more-button:hover,
+html[data-theme="dark"] .auth-secondary:hover,
+html[data-theme="dark"] .map-page .btn-outline:hover,
+html[data-theme="dark"] .map-page .btn-favorite:hover {
+    background: var(--dark-blue) !important;
+    color: #06111f !important;
+}
+
+html[data-theme="dark"] .header-logout-btn {
+    color: var(--dark-muted) !important;
+}
+
+html[data-theme="dark"] .header-logout-btn:hover {
+    color: var(--dark-red) !important;
+}
+
+html[data-theme="dark"] .search-bar,
+html[data-theme="dark"] .route-card,
+html[data-theme="dark"] .ready-route-card-vue,
+html[data-theme="dark"] .profile-card,
+html[data-theme="dark"] .auth-card,
+html[data-theme="dark"] .form-panel,
+html[data-theme="dark"] .admin-card,
+html[data-theme="dark"] .map-sidebar,
+html[data-theme="dark"] .map-right-panel,
+html[data-theme="dark"] .map-wrapper,
+html[data-theme="dark"] .save-route-box,
+html[data-theme="dark"] .bg-white {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] .bg-slate-50,
+html[data-theme="dark"] .bg-slate-100 {
+    background: var(--dark-panel-soft) !important;
+}
+
+html[data-theme="dark"] .border,
+html[data-theme="dark"] .border-slate-100,
+html[data-theme="dark"] .border-slate-200,
+html[data-theme="dark"] .border-brandBlue {
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] label,
+html[data-theme="dark"] small,
+html[data-theme="dark"] .search-text,
+html[data-theme="dark"] .route-meta,
+html[data-theme="dark"] .about-city-caption,
+html[data-theme="dark"] .about-city-text p,
+html[data-theme="dark"] .attractions-info p,
+html[data-theme="dark"] .attractions-info small,
+html[data-theme="dark"] .cta-text,
+html[data-theme="dark"] .cta-register,
+html[data-theme="dark"] .auth-subtitle,
+html[data-theme="dark"] .auth-bottom-link,
+html[data-theme="dark"] .map-sidebar p,
+html[data-theme="dark"] .map-right-panel p,
+html[data-theme="dark"] .footer-description,
+html[data-theme="dark"] .footer-copy,
+html[data-theme="dark"] .text-slate-400,
+html[data-theme="dark"] .text-slate-500,
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-slate-700,
+html[data-theme="dark"] .text-brandMuted {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] .text-slate-800,
+html[data-theme="dark"] .text-slate-900,
+html[data-theme="dark"] .route-title,
+html[data-theme="dark"] .route-card h3,
+html[data-theme="dark"] .route-card h4,
+html[data-theme="dark"] .profile-card h2,
+html[data-theme="dark"] .profile-card h3,
+html[data-theme="dark"] .map-sidebar h2,
+html[data-theme="dark"] .map-sidebar h3,
+html[data-theme="dark"] .map-right-panel h2,
+html[data-theme="dark"] .map-right-panel h3,
+html[data-theme="dark"] .search-title,
+html[data-theme="dark"] .cta-title,
+html[data-theme="dark"] .routes-title,
+html[data-theme="dark"] .section-title,
+html[data-theme="dark"] .about-city-header h2,
+html[data-theme="dark"] .attractions-info h2 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .route-location,
+html[data-theme="dark"] .routes-subtitle,
+html[data-theme="dark"] .cta-register a,
+html[data-theme="dark"] .auth-bottom-link a,
+html[data-theme="dark"] .footer-brand-subtitle,
+html[data-theme="dark"] .map-page .map-section-title,
+html[data-theme="dark"] .map-page .map-right-title {
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .about-city-section,
+html[data-theme="dark"] .attractions-section,
+html[data-theme="dark"] .routes-section,
+html[data-theme="dark"] .auth-page,
+html[data-theme="dark"] .map-page,
+html[data-theme="dark"] main {
+    background: var(--dark-bg) !important;
+}
+
+html[data-theme="dark"] .cta-section {
+    background: linear-gradient(180deg, var(--dark-bg-deep), var(--dark-bg)) !important;
+    border-top: 1px solid rgba(56, 189, 248, 0.12);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+}
+
+html[data-theme="dark"] .cta-dots {
+    background-image: radial-gradient(rgba(148, 163, 184, 0.24) 2px, transparent 3px) !important;
+    opacity: 0.65 !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .auth-form input,
+html[data-theme="dark"] .map-page input,
+html[data-theme="dark"] .map-page select {
+    background: #121925 !important;
+    color: var(--dark-text) !important;
+    border-color: rgba(56, 189, 248, 0.5) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder,
+html[data-theme="dark"] .auth-form input::placeholder,
+html[data-theme="dark"] .map-page input::placeholder {
+    color: #9bacbf !important;
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] select:focus {
+    border-color: var(--dark-blue) !important;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18) !important;
+    outline: none !important;
+}
+
+html[data-theme="dark"] .auth-page {
+    background: var(--dark-bg) !important;
+}
+
+html[data-theme="dark"] .auth-photo img {
+    opacity: 0.9;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] .auth-title {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .auth-tab {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] .auth-message {
+    background: rgba(127, 29, 29, 0.25) !important;
+    border-color: rgba(248, 113, 113, 0.45) !important;
+    color: #fecaca !important;
+}
+
+html[data-theme="dark"] .footer {
+    background: #0d1320 !important;
+    color: var(--dark-text) !important;
+    border-top: 1px solid rgba(56, 189, 248, 0.18);
+}
+
+html[data-theme="dark"] .footer-column h4,
+html[data-theme="dark"] .footer-brand-name {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .footer-column a,
+html[data-theme="dark"] .footer-column p {
+    color: var(--dark-text-soft) !important;
+}
+
+/* About page */
+
+html[data-theme="dark"] body.page-about .about-page,
+html[data-theme="dark"] body.page-about .about-intro-section,
+html[data-theme="dark"] body.page-about .about-image-section,
+html[data-theme="dark"] body.page-about .about-description-section,
+html[data-theme="dark"] body.page-about .about-story-section {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-intro-title h2 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-intro-title span {
+    color: var(--dark-orange) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-intro-text p,
+html[data-theme="dark"] body.page-about .about-description-text p {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-story-block {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-story-block h3 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-story-block h3::after {
+    background: var(--dark-orange) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-story-block p {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-about .about-decor-line {
+    opacity: 0.32 !important;
+}
+
+html[data-theme="dark"] body.page-about .about-decor-line img {
+    filter: brightness(0.85) saturate(1.15);
+}
+
+/* Home page */
+
+html[data-theme="dark"] body.page-index,
+html[data-theme="dark"] body.page-home {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-index main,
+html[data-theme="dark"] body.page-home main {
+    background: var(--dark-bg) !important;
+}
+
+html[data-theme="dark"] body.page-index .about-home-section,
+html[data-theme="dark"] body.page-index .attractions-home-section,
+html[data-theme="dark"] body.page-index .home-routes-section,
+html[data-theme="dark"] body.page-home .about-home-section,
+html[data-theme="dark"] body.page-home .attractions-home-section,
+html[data-theme="dark"] body.page-home .home-routes-section {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section,
+html[data-theme="dark"] body.page-home .home-routes-section {
+    background: linear-gradient(180deg, var(--dark-bg) 0%, var(--dark-bg-deep) 100%) !important;
+    color: var(--dark-text) !important;
+    border-top: 1px solid rgba(56, 189, 248, 0.14);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.14);
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section::before,
+html[data-theme="dark"] body.page-index .home-routes-section::after,
+html[data-theme="dark"] body.page-home .home-routes-section::before,
+html[data-theme="dark"] body.page-home .home-routes-section::after {
+    background: transparent !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section > div,
+html[data-theme="dark"] body.page-index .home-routes-section .relative,
+html[data-theme="dark"] body.page-index .home-routes-slider,
+html[data-theme="dark"] body.page-index .home-routes-swiper,
+html[data-theme="dark"] body.page-index .swiper,
+html[data-theme="dark"] body.page-index .swiper-wrapper,
+html[data-theme="dark"] body.page-index .swiper-slide,
+html[data-theme="dark"] body.page-home .home-routes-section > div,
+html[data-theme="dark"] body.page-home .home-routes-section .relative,
+html[data-theme="dark"] body.page-home .home-routes-slider,
+html[data-theme="dark"] body.page-home .home-routes-swiper,
+html[data-theme="dark"] body.page-home .swiper,
+html[data-theme="dark"] body.page-home .swiper-wrapper,
+html[data-theme="dark"] body.page-home .swiper-slide {
+    background: transparent !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-info,
+html[data-theme="dark"] body.page-home .home-routes-info {
+    background: transparent !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-subtitle,
+html[data-theme="dark"] body.page-home .home-routes-subtitle {
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-title,
+html[data-theme="dark"] body.page-home .home-routes-title {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-button,
+html[data-theme="dark"] body.page-home .home-routes-button {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(56, 189, 248, 0.24) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-button:hover,
+html[data-theme="dark"] body.page-home .home-routes-button:hover {
+    background: linear-gradient(135deg, #2399e8, var(--dark-blue-hover)) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-button-prev,
+html[data-theme="dark"] body.page-index .home-routes-button-next,
+html[data-theme="dark"] body.page-home .home-routes-button-prev,
+html[data-theme="dark"] body.page-home .home-routes-button-next {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-button-prev:hover,
+html[data-theme="dark"] body.page-index .home-routes-button-next:hover,
+html[data-theme="dark"] body.page-home .home-routes-button-prev:hover,
+html[data-theme="dark"] body.page-home .home-routes-button-next:hover {
+    background: var(--dark-blue) !important;
+    color: #06111f !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section .route-card,
+html[data-theme="dark"] body.page-index .home-routes-section .ready-route-card,
+html[data-theme="dark"] body.page-index .home-routes-section .ready-route-card-vue,
+html[data-theme="dark"] body.page-home .home-routes-section .route-card,
+html[data-theme="dark"] body.page-home .home-routes-section .ready-route-card,
+html[data-theme="dark"] body.page-home .home-routes-section .ready-route-card-vue {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section .route-card h3,
+html[data-theme="dark"] body.page-index .home-routes-section .route-card h4,
+html[data-theme="dark"] body.page-index .home-routes-section .ready-route-card h3,
+html[data-theme="dark"] body.page-index .home-routes-section .ready-route-card h4,
+html[data-theme="dark"] body.page-home .home-routes-section .route-card h3,
+html[data-theme="dark"] body.page-home .home-routes-section .route-card h4,
+html[data-theme="dark"] body.page-home .home-routes-section .ready-route-card h3,
+html[data-theme="dark"] body.page-home .home-routes-section .ready-route-card h4 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-index .home-routes-section .route-card p,
+html[data-theme="dark"] body.page-index .home-routes-section .ready-route-card p,
+html[data-theme="dark"] body.page-index .home-routes-section .route-location,
+html[data-theme="dark"] body.page-home .home-routes-section .route-card p,
+html[data-theme="dark"] body.page-home .home-routes-section .ready-route-card p,
+html[data-theme="dark"] body.page-home .home-routes-section .route-location {
+    color: var(--dark-text-soft) !important;
+}
+
+/* Map page */
+
+html[data-theme="dark"] .map-page {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .map-page .map-top h1 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .map-page .map-ready-link {
+    background: var(--dark-panel-soft) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] .map-page .map-sidebar,
+html[data-theme="dark"] .map-page .map-right-panel {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] .map-page .map-card,
+html[data-theme="dark"] .map-page .map-save-card,
+html[data-theme="dark"] .map-page .map-routes-card,
+html[data-theme="dark"] .map-page .auth-card {
+    background: var(--dark-panel-soft) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] .map-page .map-checkbox,
+html[data-theme="dark"] .map-page .map-point,
+html[data-theme="dark"] .map-page .empty-segment-card,
+html[data-theme="dark"] .map-page .route-segment-card,
+html[data-theme="dark"] .map-page .route-list-item,
+html[data-theme="dark"] .map-page .route-empty-item,
+html[data-theme="dark"] .map-page #routeList li {
+    background: #121925 !important;
+    color: var(--dark-text) !important;
+    border-color: rgba(139, 164, 196, 0.28) !important;
+}
+
+html[data-theme="dark"] .map-page .map-summary h2,
+html[data-theme="dark"] .map-page .map-panel-title h2,
+html[data-theme="dark"] .map-page .route-item-title,
+html[data-theme="dark"] .map-page .route-segment-title {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .map-page .map-summary p,
+html[data-theme="dark"] .map-page .map-panel-title p,
+html[data-theme="dark"] .map-page .map-save-hint,
+html[data-theme="dark"] .map-page .auth-text,
+html[data-theme="dark"] .map-page .map-point p,
+html[data-theme="dark"] .map-page .empty-segment-card {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] .map-page .map-card-title,
+html[data-theme="dark"] .map-page #routeNameCounter {
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .map-page .map-point span {
+    color: var(--dark-muted) !important;
+}
+
+html[data-theme="dark"] .map-page .map-checkbox span {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] .map-page .map-checkbox input {
+    accent-color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] .map-page .map-input,
+html[data-theme="dark"] .map-page .map-select,
+html[data-theme="dark"] .map-page input,
+html[data-theme="dark"] .map-page select,
+html[data-theme="dark"] .map-page textarea {
+    background: #0f1724 !important;
+    color: var(--dark-text) !important;
+    border-color: rgba(56, 189, 248, 0.48) !important;
+}
+
+html[data-theme="dark"] .map-page .map-input::placeholder,
+html[data-theme="dark"] .map-page input::placeholder {
+    color: #9bacbf !important;
+}
+
+html[data-theme="dark"] .map-page .map-route-info,
+html[data-theme="dark"] .map-page #routeInfo {
+    background: rgba(56, 189, 248, 0.14) !important;
+    color: var(--dark-text) !important;
+    border-color: rgba(56, 189, 248, 0.32) !important;
+}
+
+html[data-theme="dark"] .map-page .map-clear-btn {
+    background: transparent !important;
+    color: #fb7185 !important;
+    border-color: #fb7185 !important;
+}
+
+html[data-theme="dark"] .map-page .map-clear-btn:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .map-page .map-wrapper {
+    background: var(--dark-panel) !important;
+    border-color: var(--dark-panel-soft) !important;
+}
+
+html[data-theme="dark"] .map-page .map-save-btn,
+html[data-theme="dark"] .map-page .btn-open,
+html[data-theme="dark"] .map-page .btn-save,
+html[data-theme="dark"] .map-page .btn-primary {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .map-page .route-edit-btn,
+html[data-theme="dark"] .map-page .btn-rename,
+html[data-theme="dark"] .map-page .btn-warning {
+    background: rgba(244, 166, 42, 0.16) !important;
+    color: var(--dark-orange) !important;
+}
+
+html[data-theme="dark"] .map-page .route-delete-icon-btn,
+html[data-theme="dark"] .map-page .btn-delete,
+html[data-theme="dark"] .map-page .btn-danger {
+    background: rgba(239, 68, 68, 0.16) !important;
+    color: #fb7185 !important;
+}
+
+html[data-theme="dark"] .map-page .route-favorite-heart {
+    background: transparent !important;
+    color: var(--dark-orange) !important;
+}
+
+html[data-theme="dark"] .map-page .confirm-box {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+html[data-theme="dark"] .map-page .confirm-box h3 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .map-page .confirm-box p {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] .map-page .leaflet-popup-content-wrapper,
+html[data-theme="dark"] .map-page .leaflet-popup-tip {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] .map-page .leaflet-popup-content {
+    color: var(--dark-text) !important;
+}
+
+/* Admin page */
+
+html[data-theme="dark"] body.page-admin,
+html[data-theme="dark"] body.page-admin main,
+html[data-theme="dark"] body.page-admin .admin-page,
+html[data-theme="dark"] body.page-admin .admin-app,
+html[data-theme="dark"] body.page-admin .admin-layout {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-sidebar {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border-right: 1px solid var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-logo,
+html[data-theme="dark"] body.page-admin .admin-brand,
+html[data-theme="dark"] body.page-admin .admin-user-card {
+    background: transparent !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-avatar,
+html[data-theme="dark"] body.page-admin .admin-logo-mark {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-nav button,
+html[data-theme="dark"] body.page-admin .admin-nav a,
+html[data-theme="dark"] body.page-admin .admin-tab-btn,
+html[data-theme="dark"] body.page-admin .admin-menu-btn {
+    background: transparent !important;
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-nav button:hover,
+html[data-theme="dark"] body.page-admin .admin-nav a:hover,
+html[data-theme="dark"] body.page-admin .admin-tab-btn:hover,
+html[data-theme="dark"] body.page-admin .admin-menu-btn:hover {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-nav button.active,
+html[data-theme="dark"] body.page-admin .admin-nav a.active,
+html[data-theme="dark"] body.page-admin .admin-tab-btn.active,
+html[data-theme="dark"] body.page-admin .admin-menu-btn.active,
+html[data-theme="dark"] body.page-admin .active-admin-tab {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 26px rgba(56, 189, 248, 0.22) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-current-card,
+html[data-theme="dark"] body.page-admin .current-admin-card {
+    background: #fff7ed !important;
+    color: #111827 !important;
+    border-color: rgba(244, 166, 42, 0.42) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-current-card h3,
+html[data-theme="dark"] body.page-admin .admin-current-card p,
+html[data-theme="dark"] body.page-admin .current-admin-card h3,
+html[data-theme="dark"] body.page-admin .current-admin-card p {
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-main,
+html[data-theme="dark"] body.page-admin .admin-content {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-kicker,
+html[data-theme="dark"] body.page-admin .admin-section-kicker,
+html[data-theme="dark"] body.page-admin .admin-overline {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-title,
+html[data-theme="dark"] body.page-admin .admin-page-title,
+html[data-theme="dark"] body.page-admin .admin-content h1,
+html[data-theme="dark"] body.page-admin .admin-content h2,
+html[data-theme="dark"] body.page-admin .admin-content h3 {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-refresh-btn,
+html[data-theme="dark"] body.page-admin .admin-outline-btn {
+    background: transparent !important;
+    color: var(--dark-text) !important;
+    border: 2px solid var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-refresh-btn:hover,
+html[data-theme="dark"] body.page-admin .admin-outline-btn:hover {
+    background: rgba(56, 189, 248, 0.12) !important;
+    border-color: var(--dark-blue) !important;
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-admin .stat-card,
+html[data-theme="dark"] body.page-admin .admin-stat-card,
+html[data-theme="dark"] body.page-admin .stats-card {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] body.page-admin .stat-card p,
+html[data-theme="dark"] body.page-admin .stat-card span,
+html[data-theme="dark"] body.page-admin .admin-stat-card p,
+html[data-theme="dark"] body.page-admin .admin-stat-card span,
+html[data-theme="dark"] body.page-admin .stats-card p,
+html[data-theme="dark"] body.page-admin .stats-card span {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-admin .stat-card strong,
+html[data-theme="dark"] body.page-admin .stat-card b,
+html[data-theme="dark"] body.page-admin .admin-stat-card strong,
+html[data-theme="dark"] body.page-admin .admin-stat-card b,
+html[data-theme="dark"] body.page-admin .stats-card strong,
+html[data-theme="dark"] body.page-admin .stats-card b {
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-panel,
+html[data-theme="dark"] body.page-admin .admin-card,
+html[data-theme="dark"] body.page-admin .admin-block,
+html[data-theme="dark"] body.page-admin .admin-section,
+html[data-theme="dark"] body.page-admin .admin-form-card,
+html[data-theme="dark"] body.page-admin .admin-preview-card,
+html[data-theme="dark"] body.page-admin .admin-table-card {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-inner-card,
+html[data-theme="dark"] body.page-admin .admin-info-card,
+html[data-theme="dark"] body.page-admin .admin-warning-card,
+html[data-theme="dark"] body.page-admin .admin-action-card,
+html[data-theme="dark"] body.page-admin .admin-selected-card,
+html[data-theme="dark"] body.page-admin .admin-segments-card,
+html[data-theme="dark"] body.page-admin .admin-list-card,
+html[data-theme="dark"] body.page-admin .admin-route-card {
+    background: var(--dark-panel-soft) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid rgba(139, 164, 196, 0.28) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-warning-card {
+    background: #fff7ed !important;
+    color: #9a3412 !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-warning-card p,
+html[data-theme="dark"] body.page-admin .admin-warning-card span {
+    color: #9a3412 !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-content label,
+html[data-theme="dark"] body.page-admin .admin-label {
+    color: var(--dark-text-soft) !important;
+}
+
+html[data-theme="dark"] body.page-admin input,
+html[data-theme="dark"] body.page-admin textarea,
+html[data-theme="dark"] body.page-admin select {
+    background: #0f1724 !important;
+    color: var(--dark-text) !important;
+    border-color: rgba(56, 189, 248, 0.48) !important;
+}
+
+html[data-theme="dark"] body.page-admin input::placeholder,
+html[data-theme="dark"] body.page-admin textarea::placeholder {
+    color: #9bacbf !important;
+}
+
+html[data-theme="dark"] body.page-admin input:focus,
+html[data-theme="dark"] body.page-admin textarea:focus,
+html[data-theme="dark"] body.page-admin select:focus {
+    border-color: var(--dark-blue) !important;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.16) !important;
+    outline: none !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-primary-btn,
+html[data-theme="dark"] body.page-admin .admin-save-btn,
+html[data-theme="dark"] body.page-admin .admin-blue-btn,
+html[data-theme="dark"] body.page-admin .btn-primary,
+html[data-theme="dark"] body.page-admin .btn-save,
+html[data-theme="dark"] body.page-admin .btn-show,
+html[data-theme="dark"] body.page-admin .btn-refresh {
+    background: linear-gradient(135deg, #1688d4, var(--dark-blue)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 10px 24px rgba(56, 189, 248, 0.22) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-orange-btn,
+html[data-theme="dark"] body.page-admin .admin-edit-btn,
+html[data-theme="dark"] body.page-admin .btn-warning,
+html[data-theme="dark"] body.page-admin .btn-edit {
+    background: linear-gradient(135deg, #d88918, var(--dark-orange)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 10px 24px rgba(244, 166, 42, 0.22) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-danger-btn,
+html[data-theme="dark"] body.page-admin .admin-delete-btn,
+html[data-theme="dark"] body.page-admin .btn-danger,
+html[data-theme="dark"] body.page-admin .btn-delete,
+html[data-theme="dark"] body.page-admin .btn-reset {
+    background: transparent !important;
+    color: #fb7185 !important;
+    border: 2px solid #fb7185 !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-danger-btn:hover,
+html[data-theme="dark"] body.page-admin .admin-delete-btn:hover,
+html[data-theme="dark"] body.page-admin .btn-danger:hover,
+html[data-theme="dark"] body.page-admin .btn-delete:hover,
+html[data-theme="dark"] body.page-admin .btn-reset:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-muted-btn,
+html[data-theme="dark"] body.page-admin .btn-muted,
+html[data-theme="dark"] body.page-admin .btn-outline {
+    background: transparent !important;
+    color: var(--dark-text) !important;
+    border: 2px solid var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-muted-btn:hover,
+html[data-theme="dark"] body.page-admin .btn-muted:hover,
+html[data-theme="dark"] body.page-admin .btn-outline:hover {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: var(--dark-blue) !important;
+    border-color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-admin table,
+html[data-theme="dark"] body.page-admin .admin-table {
+    background: transparent !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin th,
+html[data-theme="dark"] body.page-admin .admin-table th {
+    color: var(--dark-blue) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin td,
+html[data-theme="dark"] body.page-admin .admin-table td {
+    color: var(--dark-text-soft) !important;
+    border-color: rgba(139, 164, 196, 0.22) !important;
+}
+
+html[data-theme="dark"] body.page-admin tr:hover td {
+    background: rgba(56, 189, 248, 0.07) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-badge,
+html[data-theme="dark"] body.page-admin .role-badge,
+html[data-theme="dark"] body.page-admin .badge {
+    background: rgba(56, 189, 248, 0.16) !important;
+    color: var(--dark-blue) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-map,
+html[data-theme="dark"] body.page-admin .admin-map-wrapper,
+html[data-theme="dark"] body.page-admin #readyRouteMap,
+html[data-theme="dark"] body.page-admin #poiMap {
+    background: var(--dark-panel-soft) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .leaflet-popup-content-wrapper,
+html[data-theme="dark"] body.page-admin .leaflet-popup-tip {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .leaflet-popup-content {
+    color: var(--dark-text) !important;
+}
+
+html[data-theme="dark"] body.page-admin .leaflet-control-zoom a {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-preview-card img,
+html[data-theme="dark"] body.page-admin .route-preview img {
+    opacity: 0.96;
+}
+
+html[data-theme="dark"] body.page-admin .admin-alert,
+html[data-theme="dark"] body.page-admin .admin-message,
+html[data-theme="dark"] body.page-admin .notice {
+    background: var(--dark-panel-soft) !important;
+    color: var(--dark-text-soft) !important;
+    border-color: var(--dark-border) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-alert-warning,
+html[data-theme="dark"] body.page-admin .warning,
+html[data-theme="dark"] body.page-admin .alert-warning {
+    background: #fff7ed !important;
+    color: #9a3412 !important;
+    border-color: rgba(244, 166, 42, 0.38) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-modal,
+html[data-theme="dark"] body.page-admin .modal {
+    background: rgba(3, 7, 18, 0.68) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-modal-box,
+html[data-theme="dark"] body.page-admin .modal-box,
+html[data-theme="dark"] body.page-admin .confirm-box {
+    background: var(--dark-panel) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important;
+    box-shadow: var(--dark-shadow) !important;
+}
+
+html[data-theme="dark"] body.page-admin .admin-sidebar::-webkit-scrollbar,
+html[data-theme="dark"] body.page-admin .admin-content::-webkit-scrollbar,
+html[data-theme="dark"] body.page-admin .admin-main::-webkit-scrollbar {
+    width: 8px;
+}
+
+html[data-theme="dark"] body.page-admin .admin-sidebar::-webkit-scrollbar-track,
+html[data-theme="dark"] body.page-admin .admin-content::-webkit-scrollbar-track,
+html[data-theme="dark"] body.page-admin .admin-main::-webkit-scrollbar-track {
+    background: #111827;
+}
+
+html[data-theme="dark"] body.page-admin .admin-sidebar::-webkit-scrollbar-thumb,
+html[data-theme="dark"] body.page-admin .admin-content::-webkit-scrollbar-thumb,
+html[data-theme="dark"] body.page-admin .admin-main::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.42);
+    border-radius: 999px;
+}
+
+/* Mobile */
+
+@media (max-width: 950px) {
+    .theme-toggle {
+        order: 10;
+    }
+
+    html[data-theme="dark"] .nav a {
+        color: var(--dark-text-soft) !important;
+    }
+}
+
+@media (max-width: 760px) {
+    .theme-toggle {
+        width: 58px;
+        height: 34px;
+    }
+
+    .theme-toggle-track {
+        width: 58px;
+        height: 32px;
+    }
+
+    .theme-toggle-thumb {
+        width: 22px;
+        height: 22px;
+    }
+
+    html[data-theme="dark"] .theme-toggle-thumb {
+        left: 29px;
+    }
+
+    .theme-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    html[data-theme="dark"] .auth-photo img {
+        opacity: 0.86;
+    }
+
+    html[data-theme="dark"] .auth-title {
+        color: var(--dark-text) !important;
+    }
+
+    html[data-theme="dark"] .cta-section {
+        padding-top: 52px;
+        padding-bottom: 58px;
+    }
+
+    html[data-theme="dark"] body.page-about .about-intro-title h2 {
+        color: var(--dark-text) !important;
+    }
+
+    html[data-theme="dark"] body.page-about .about-story-block {
+        background: var(--dark-panel) !important;
+    }
+
+    html[data-theme="dark"] body.page-admin .admin-layout {
+        background: var(--dark-bg) !important;
+    }
+
+    html[data-theme="dark"] body.page-admin .admin-sidebar,
+    html[data-theme="dark"] body.page-admin .admin-main,
+    html[data-theme="dark"] body.page-admin .admin-content {
+        background: var(--dark-bg) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    #homeDecorApp {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .about-home-section,
+    .attractions-home-section,
+    .home-routes-section {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .about-home-section {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+    }
+
+    .attractions-home-section {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+    }
+
+    .home-routes-section {
+        padding-top: 48px !important;
+        padding-bottom: 56px !important;
+    }
+
+    .home-routes-section > .relative {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+
+    .home-routes-slider {
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+    }
+
+    .home-routes-swiper {
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .home-routes-info {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .home-routes-title {
+        font-size: 34px !important;
+        line-height: 1.05 !important;
+    }
+
+    .home-routes-button {
+        margin: 20px auto 0 !important;
+    }
+}
+/* === Final header hover fix === */
+html[data-theme="dark"] .header .nav a:hover,
+html[data-theme="dark"] .nav a:hover,
+body[data-theme="dark"] .header .nav a:hover,
+body[data-theme="dark"] .nav a:hover,
+body.dark-theme .header .nav a:hover,
+body.dark-theme .nav a:hover {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .header .register-btn:hover,
+html[data-theme="dark"] .header .header-map-btn:hover,
+html[data-theme="dark"] .header .header-profile-btn:hover,
+html[data-theme="dark"] .header a[href^="/admin"]:hover,
+body[data-theme="dark"] .header .register-btn:hover,
+body[data-theme="dark"] .header .header-map-btn:hover,
+body[data-theme="dark"] .header .header-profile-btn:hover,
+body[data-theme="dark"] .header a[href^="/admin"]:hover,
+body.dark-theme .header .register-btn:hover,
+body.dark-theme .header .header-map-btn:hover,
+body.dark-theme .header .header-profile-btn:hover,
+body.dark-theme .header a[href^="/admin"]:hover {
+    color: #ffffff !important;
+}

@@ -1,0 +1,167 @@
+body {
+    overflow-x: hidden;
+}
+
+#homeDecorApp {
+    overflow-x: hidden;
+}
+
+.decor-line {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.decor-line img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.about-home-section,
+.attractions-home-section,
+.home-routes-section,
+.cta-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.decor-line-about {
+    top: 62px;
+    right: -100px;
+    width: 460px;
+    opacity: 0.78;
+}
+
+.decor-line-places {
+    top: 62%;
+    right: -240px;
+    width: 1300px;
+    transform: translateY(-50%);
+    opacity: 0.72;
+}
+
+.decor-line-routes {
+    top: 22%;
+    left: -80px;
+    width: 360px;
+    transform: translateY(-50%);
+    opacity: 0.6;
+}
+
+.decor-line-cta {
+    top: 44%;
+    right: -260px;
+    width: 600px;
+    transform: translateY(-50%);
+    opacity: 0.65;
+}
+
+.cta-section::after {
+    display: none !important;
+}
+
+@media (max-width: 1500px) {
+    .decor-line-about {
+        right: -230px;
+        width: 540px;
+    }
+
+    .decor-line-places {
+        right: -300px;
+        width: 560px;
+    }
+
+    .decor-line-routes {
+        left: -315px;
+        width: 560px;
+    }
+
+    .decor-line-cta {
+        right: -310px;
+        width: 560px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .decor-line-about {
+        top: 70px;
+        right: -300px;
+        width: 500px;
+        opacity: 0.45;
+    }
+
+    .decor-line-places {
+        right: -360px;
+        width: 500px;
+        opacity: 0.35;
+    }
+
+    .decor-line-routes {
+        left: -360px;
+        width: 500px;
+        opacity: 0.35;
+    }
+
+    .decor-line-cta {
+        right: -360px;
+        width: 500px;
+        opacity: 0.35;
+    }
+}
+
+@media (max-width: 900px) {
+    .decor-line-about {
+        right: -370px;
+        width: 480px;
+        opacity: 0.28;
+    }
+
+    .decor-line-places,
+    .decor-line-routes,
+    .decor-line-cta {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .decor-line-about {
+        display: none;
+    }
+}
+/* ===============================
+   Decoration refinement
+   =============================== */
+.decor-line-places {
+    top: 56%;
+    right: -140px;
+    width: min(980px, 70vw);
+    opacity: 0.42;
+    z-index: 0;
+}
+
+.attractions-home-section > .relative {
+    z-index: 2;
+}
+
+html[data-theme="dark"] .decor-line-places,
+body.dark-theme .decor-line-places,
+.dark .decor-line-places {
+    opacity: 0.16;
+    filter: saturate(1.1) brightness(0.9);
+}
+
+@media (max-width: 1200px) {
+    .decor-line-places {
+        right: -220px;
+        width: 640px;
+        opacity: 0.26;
+    }
+}
+
+@media (max-width: 900px) {
+    .decor-line-places {
+        display: none;
+    }
+}

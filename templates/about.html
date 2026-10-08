@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}
+О нас
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="about-page">
+
+    <section class="about-hero">
+        <div class="about-hero-image-wrapper">
+            <img
+                src="{{ url_for('static', filename='img/hero/about-banner.jpg') }}"
+                alt="Владивосток"
+                class="about-hero-image"
+            >
+
+            <div class="about-hero-overlay"></div>
+
+            <div class="about-hero-content">
+                <h1>О нас</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-intro-section">
+
+        <div class="about-decor-line about-decor-line-second">
+            <img
+                src="{{ url_for('static', filename='img/decor/line-places.svg') }}"
+                alt=""
+            >
+        </div>
+
+        <div class="container about-intro-container">
+
+            <div class="about-intro-grid">
+
+                <div class="about-intro-title">
+                    <h2>
+                        Откройте
+                        <span>Владивосток</span>
+                        по-новому
+                    </h2>
+                </div>
+
+                <div class="about-intro-text">
+                    <p>
+                        Туристический навигационный сайт создан для удобного знакомства
+                        с Владивостоком, его достопримечательностями, видовыми точками
+                        и прогулочными маршрутами.
+                    </p>
+
+                    <p>
+                        Сервис помогает выбрать готовый маршрут или перейти к карте
+                        и самостоятельно составить путь по интересующим местам города.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about-image-section">
+        <div class="container">
+            <img
+                src="{{ url_for('static', filename='img/city/about-city.jpg') }}"
+                alt="Владивосток"
+                class="about-large-image"
+            >
+        </div>
+    </section>
+
+    <section class="about-description-section">
+        <div class="container">
+
+            <div class="about-description-text">
+                <p>
+                    Владивосток — город на берегу Японского моря, где морские пейзажи,
+                    сопки, мосты и исторические улицы формируют особую городскую среду.
+                </p>
+
+                <p>
+                    При разработке сайта основное внимание уделялось тому, чтобы пользователь
+                    мог не только прочитать описание интересных мест, но и увидеть их
+                    расположение на карте.
+                </p>
+
+                <p>
+                    Поэтому важной частью проекта стала интерактивная карта, связанная
+                    с маршрутами и выбранными точками.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about-quote-section">
+        <img
+            src="{{ url_for('static', filename='img/city/lighthouse-banner.jpg') }}"
+            alt="Маяк во Владивостоке"
+            class="about-quote-image"
+        >
+
+        <div class="about-quote-overlay"></div>
+
+        <div class="about-quote-content">
+            <h2>
+                Город, где море встречается с небом
+            </h2>
+        </div>
+    </section>
+
+<section class="about-story-section">
+
+    <div class="about-decor-line about-decor-line-story">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-routes.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="container about-story-container">
+
+        <div class="about-story-grid">
+
+            <article class="about-story-block">
+                <h3>Наша история</h3>
+
+                <p>
+                    Идея проекта появилась из необходимости объединить информацию
+                    о туристических местах Владивостока и инструменты для построения
+                    маршрутов в одном удобном интерфейсе.
+                </p>
+            </article>
+
+            <article class="about-story-block">
+                <h3>Наша цель</h3>
+
+                <p>
+                    Основная цель сайта — помочь жителям и гостям города быстрее
+                    ориентироваться в туристических объектах, выбирать маршруты
+                    и планировать прогулки по Владивостоку.
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+</div>
+
+{% endblock %}

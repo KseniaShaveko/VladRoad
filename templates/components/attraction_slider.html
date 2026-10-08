@@ -1,0 +1,33 @@
+<section class="attractions-section">
+    <div class="container">
+        <div class="attractions-top">
+            <div class="attractions-text">
+                <h2>
+                    На что
+                    <span>взглянуть?</span>
+                </h2>
+
+                <p>
+                    Выберите интересное место —
+                    и откройте его на карте.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="swiper attractions-swiper"
+            data-pois-url="/get_pois"
+            data-map-url="/map"
+            data-static-base="{{ url_for('static', filename='') }}"
+        >
+            <div class="swiper-wrapper" id="homeAttractionsWrapper"></div>
+
+            <div class="home-dynamic-empty attractions-empty" hidden>
+                Достопримечательности пока не добавлены.
+            </div>
+
+            <button type="button" class="attractions-button-prev" aria-label="Предыдущая достопримечательность"></button>
+            <button type="button" class="attractions-button-next" aria-label="Следующая достопримечательность"></button>
+        </div>
+    </div>
+</section>

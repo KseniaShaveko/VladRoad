@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}
+Карта маршрутов
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="map-page" id="mapApp">
+    <div class="map-top">
+        <h1 id="routeTitleDisplay">Новый маршрут</h1>
+
+        <a href="/ready_tours" class="map-ready-link">
+            Готовые маршруты
+        </a>
+    </div>
+
+    <div class="map-container">
+
+        <aside class="map-sidebar">
+            <details class="map-details" id="routeSettingsDetails" open>
+                <summary class="map-summary">
+                    <div>
+                        <h2>Настройки маршрута</h2>
+                        <p>Фильтры, точки и типы участков.</p>
+                    </div>
+
+                    <span>⌄</span>
+                </summary>
+
+                <div class="map-card">
+                    <h3 class="map-card-title">Категории объектов</h3>
+
+                    <div class="map-filters">
+                        <label class="map-checkbox">
+                            <input type="checkbox" id="filterAttraction" checked>
+                            <span>Достопримечательности</span>
+                        </label>
+
+                        <label class="map-checkbox">
+                            <input type="checkbox" id="filterCafe" checked>
+                            <span>Кафе</span>
+                        </label>
+
+                        <label class="map-checkbox">
+                            <input type="checkbox" id="filterRestaurant" checked>
+                            <span>Рестораны</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="map-card">
+                    <h3 class="map-card-title">Тип участка по умолчанию</h3>
+
+                    <select id="routeType" class="map-select">
+                        <option value="driving">Транспорт</option>
+                        <option value="foot">Пешком</option>
+                    </select>
+                </div>
+
+                <div class="map-card">
+                    <h3 class="map-card-title">Точки маршрута</h3>
+
+                    <div class="map-points">
+                        <div class="map-point">
+                            <span>Начальная точка</span>
+                            <p id="pointA">Не выбрана</p>
+                        </div>
+
+                        <div class="map-point">
+                            <span>Конечная точка</span>
+                            <p id="pointB">Не выбрана</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-card">
+                    <h3 class="map-card-title">Участки маршрута</h3>
+                    <div id="segments" class="map-segments"></div>
+                </div>
+
+                <div id="routeInfo" class="map-route-info">
+                    Нажмите на карту, чтобы добавить точки.
+                </div>
+
+                <button type="button" onclick="clearRoute()" class="map-clear-btn">
+                    Очистить маршрут
+                </button>
+            </details>
+        </aside>
+
+        <main class="map-wrapper">
+            <div id="map"></div>
+        </main>
+
+        <aside class="map-right-panel">
+            <div class="map-panel-title">
+                <h2>Мои маршруты</h2>
+                <p>Создание, сохранение и просмотр ваших маршрутов.</p>
+            </div>
+
+            {% if session.get('user_id') %}
+                <div class="map-card map-save-card">
+                    <div class="route-name-row">
+                        <h3 class="map-card-title">Название маршрута</h3>
+                        <span id="routeNameCounter">0/80</span>
+                    </div>
+
+                    <input
+                        type="text"
+                        id="routeName"
+                        maxlength="80"
+                        class="map-input"
+                        placeholder="Например, прогулка по центру"
+                    >
+
+                    <p class="map-save-hint">
+                        Название будет отображаться в списке ваших маршрутов и в заголовке карты.
+                    </p>
+
+                    <button type="button" onclick="saveRoute()" class="map-save-btn">
+                        Сохранить маршрут
+                    </button>
+                </div>
+
+                <div class="map-card map-routes-card">
+                    <h3 class="map-card-title">Созданные маршруты</h3>
+                    <ul id="routeList" class="route-list"></ul>
+                </div>
+            {% else %}
+                <div class="map-card auth-card">
+                    <h3 class="map-card-title">Сохранение</h3>
+
+                    <p class="auth-text">
+                        <a href="/login">Войдите</a> или
+                        <a href="/register">зарегистрируйтесь</a>, чтобы сохранять маршруты.
+                    </p>
+                </div>
+            {% endif %}
+        </aside>
+
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div id="confirmModal" class="confirm-modal hidden">
+        <div class="confirm-box">
+            <h3 id="confirmTitle">Подтвердите действие</h3>
+            <p id="confirmText">Вы уверены?</p>
+
+            <div class="confirm-actions">
+                <button id="confirmCancel" type="button" class="confirm-cancel">
+                    Отмена
+                </button>
+
+                <button id="confirmAccept" type="button" class="confirm-accept">
+                    Удалить
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+{% endblock %}

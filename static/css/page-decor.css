@@ -1,0 +1,100 @@
+.page-decor-root {
+    position: relative;
+    overflow-x: hidden;
+}
+
+.page-decor-content {
+    position: relative;
+    z-index: 2;
+}
+
+.page-decor-line {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.page-decor-line img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.routes-page-line-top {
+    top: 38px;
+    right: -100px;
+    width: 460px;
+    opacity: 0.78;
+}
+
+.auth-page-line-top {
+    top: 52px;
+    right: -105px;
+    width: 460px;
+    opacity: 0.78;
+}
+
+.about-page-line-second {
+    top: 52%;
+    right: -240px;
+    width: 900px;
+    transform: translateY(-50%);
+    opacity: 0.68;
+}
+
+.ready-routes-filter,
+.ready-routes-list,
+.auth-container,
+.about-page-decor-content {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 1500px) {
+    .routes-page-line-top,
+    .auth-page-line-top {
+        right: -180px;
+        width: 500px;
+    }
+
+    .about-page-line-second {
+        right: -310px;
+        width: 760px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .routes-page-line-top,
+    .auth-page-line-top {
+        right: -300px;
+        width: 500px;
+        opacity: 0.45;
+    }
+
+    .about-page-line-second {
+        right: -420px;
+        width: 680px;
+        opacity: 0.35;
+    }
+}
+
+@media (max-width: 900px) {
+    .routes-page-line-top,
+    .auth-page-line-top {
+        right: -370px;
+        width: 480px;
+        opacity: 0.28;
+    }
+
+    .about-page-line-second {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .routes-page-line-top,
+    .auth-page-line-top {
+        display: none;
+    }
+}

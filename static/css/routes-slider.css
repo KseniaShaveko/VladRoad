@@ -1,0 +1,345 @@
+.home-routes-section {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0 95px;
+    background: #ffffff;
+}
+
+.home-routes-section > div:last-child {
+    position: relative;
+    z-index: 2;
+}
+
+.home-routes-slider {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding: 16px 56px 32px;
+}
+
+.home-routes-slider .swiper {
+    width: 100%;
+    overflow: visible;
+}
+
+.home-routes-slider .swiper-wrapper {
+    align-items: stretch;
+}
+
+.home-routes-slider .swiper-slide {
+    width: 270px;
+    height: auto;
+    opacity: 0.45;
+    filter: blur(1.5px);
+    transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+}
+
+.home-routes-slider .swiper-slide-active,
+.home-routes-slider .swiper-slide-next,
+.home-routes-slider .swiper-slide-next + .swiper-slide {
+    opacity: 1;
+    filter: none;
+}
+
+.ready-route-card {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    height: 410px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #ffffff;
+    color: #222222;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.ready-route-card__image {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.ready-route-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 18px;
+}
+
+.ready-route-card__place {
+    margin-bottom: 12px;
+    color: #31b8ff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ready-route-card__title {
+    margin-bottom: auto;
+    font-family: "Montserrat", Arial, sans-serif;
+    color: #222222;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.ready-route-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.ready-route-card__badge {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #f3f6f9;
+    padding: 0 14px;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.home-routes-info {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+}
+
+.home-routes-subtitle {
+    margin-bottom: 12px;
+    color: #f59e0b;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.home-routes-title {
+    margin-bottom: 24px;
+    font-family: "Montserrat", Arial, sans-serif;
+    color: #1f2937;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.08;
+}
+
+.home-routes-button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #31b8ff;
+    padding: 0 22px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    transition: 0.2s;
+}
+
+.home-routes-button:hover {
+    background: #1098e7;
+}
+
+.home-routes-button-prev,
+.home-routes-button-next {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #222222;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: 0.2s;
+}
+
+.home-routes-button-prev:hover,
+.home-routes-button-next:hover {
+    background: #31b8ff;
+    color: #ffffff;
+}
+
+.home-routes-button-prev {
+    left: 8px;
+}
+
+.home-routes-button-next {
+    right: 8px;
+}
+
+.home-routes-button-prev::before {
+    content: "←";
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.home-routes-button-next::before {
+    content: "→";
+    font-size: 20px;
+    font-weight: 700;
+}
+
+@media (max-width: 1280px) {
+    .home-routes-section {
+        padding: 65px 0 80px;
+    }
+
+    .home-routes-section .mx-auto.grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px;
+    }
+
+    .home-routes-info {
+        order: -1;
+        max-width: 520px;
+    }
+
+    .home-routes-slider {
+        padding: 12px 56px 30px;
+    }
+
+    .home-routes-slider .swiper-slide {
+        width: 260px;
+    }
+
+    .ready-route-card {
+        width: 260px;
+        height: 400px;
+    }
+}
+
+@media (max-width: 760px) {
+    .home-routes-section {
+        padding: 55px 0 70px;
+    }
+
+    .home-routes-title {
+        font-size: 34px;
+    }
+
+    .home-routes-subtitle {
+        font-size: 18px;
+    }
+
+    .home-routes-slider {
+        padding: 10px 48px 28px;
+        overflow: hidden;
+    }
+
+    .home-routes-slider .swiper {
+        overflow: visible;
+    }
+
+    .home-routes-slider .swiper-slide {
+        width: 245px;
+    }
+
+    .ready-route-card {
+        width: 245px;
+        height: 390px;
+    }
+
+    .ready-route-card__image {
+        height: 155px;
+    }
+
+    .ready-route-card__title {
+        font-size: 20px;
+    }
+
+    .home-routes-button-prev,
+    .home-routes-button-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+    }
+
+    .home-routes-button-prev {
+        left: 4px;
+    }
+
+    .home-routes-button-next {
+        right: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-routes-slider {
+        padding-left: 42px;
+        padding-right: 42px;
+    }
+
+    .home-routes-slider .swiper-slide {
+        width: 235px;
+    }
+
+    .ready-route-card {
+        width: 235px;
+        height: 380px;
+    }
+
+    .home-routes-button-prev,
+    .home-routes-button-next {
+        width: 34px;
+        height: 34px;
+    }
+
+    .home-routes-button-prev::before,
+    .home-routes-button-next::before {
+        font-size: 18px;
+    }
+}
+/* Dynamic ready routes */
+.home-routes-swiper.is-empty .swiper-wrapper {
+    display: none;
+}
+
+.home-routes-swiper.is-empty ~ .home-routes-button-prev,
+.home-routes-swiper.is-empty ~ .home-routes-button-next,
+.home-routes-swiper.has-one-slide ~ .home-routes-button-prev,
+.home-routes-swiper.has-one-slide ~ .home-routes-button-next {
+    display: none;
+}
+
+.home-routes-slider:has(.home-routes-swiper.is-empty) .home-routes-button-prev,
+.home-routes-slider:has(.home-routes-swiper.is-empty) .home-routes-button-next,
+.home-routes-slider:has(.home-routes-swiper.has-one-slide) .home-routes-button-prev,
+.home-routes-slider:has(.home-routes-swiper.has-one-slide) .home-routes-button-next {
+    display: none;
+}
+
+.home-routes-swiper .home-dynamic-empty {
+    min-height: 230px;
+}
+
+html[data-theme="dark"] .home-routes-section {
+    background: #0f172a;
+}
+
+html[data-theme="dark"] .ready-route-card {
+    background: #17243a;
+    color: #ffffff;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .ready-route-card__title {
+    color: #ffffff;
+}
+
+html[data-theme="dark"] .ready-route-card__place {
+    color: #38bdf8;
+}
+
+html[data-theme="dark"] .ready-route-card__badge {
+    background: #0f172a;
+    color: #dbeafe;
+}

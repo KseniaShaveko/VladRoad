@@ -1,0 +1,823 @@
+[v-cloak] {
+    display: none !important;
+}
+
+.admin-leaflet-map {
+    width: 100%;
+    height: 430px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 8px solid #f8fafc;
+}
+
+.admin-field {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.admin-field span {
+    display: block;
+    margin-bottom: 8px;
+    color: #111827;
+    font-family: var(--font-heading, "Montserrat", Arial, sans-serif);
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.admin-field input,
+.admin-field textarea,
+.admin-field select {
+    width: 100%;
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 0 14px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 650;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.admin-field input,
+.admin-field select {
+    min-height: 48px;
+}
+
+.admin-field textarea {
+    min-height: 90px;
+    resize: vertical;
+    padding-top: 12px;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus,
+.admin-field select:focus {
+    border-color: #31b8ff;
+    box-shadow: 0 0 0 4px rgba(49, 184, 255, 0.14);
+}
+
+.admin-primary-action,
+.admin-orange-action,
+.admin-danger-action,
+.admin-mini-blue,
+.admin-mini-orange,
+.admin-text-btn {
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-heading, "Montserrat", Arial, sans-serif);
+    font-weight: 900;
+    transition: 0.2s ease;
+}
+
+.admin-primary-action,
+.admin-orange-action,
+.admin-danger-action {
+    min-height: 48px;
+    border-radius: 16px;
+    padding: 0 18px;
+    font-size: 14px;
+}
+
+.admin-primary-action {
+    background: #31b8ff;
+    color: #ffffff;
+    box-shadow: 0 10px 18px rgba(49, 184, 255, 0.22);
+}
+
+.admin-primary-action:hover,
+.admin-mini-blue:hover {
+    background: #1098e7;
+    color: #ffffff;
+}
+
+.admin-orange-action {
+    background: #f4a62a;
+    color: #ffffff;
+    box-shadow: 0 10px 18px rgba(244, 166, 42, 0.22);
+}
+
+.admin-orange-action:hover,
+.admin-mini-orange:hover {
+    background: #ea9a1b;
+    color: #ffffff;
+}
+
+.admin-danger-action {
+    border: 2px solid #ef4444;
+    background: #ffffff;
+    color: #ef4444;
+}
+
+.admin-danger-action:hover {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.admin-mini-blue,
+.admin-mini-orange {
+    min-height: 38px;
+    border-radius: 13px;
+    padding: 0 14px;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.admin-mini-blue {
+    background: #31b8ff;
+}
+
+.admin-mini-orange {
+    background: #f4a62a;
+}
+
+.admin-text-btn {
+    min-height: 36px;
+    border-radius: 12px;
+    background: #eef9ff;
+    padding: 0 12px;
+    color: #1098e7;
+    font-size: 12px;
+}
+
+.admin-text-btn:hover {
+    background: #31b8ff;
+    color: #ffffff;
+}
+
+.admin-text-btn.danger {
+    background: #fff1f2;
+    color: #ef4444;
+}
+
+.admin-text-btn.danger:hover {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.admin-empty {
+    margin: 0;
+    border-radius: 16px;
+    background: #f8fafc;
+    padding: 16px;
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    padding: 12px 14px;
+    color: #31b8ff;
+    font-size: 12px;
+    font-weight: 900;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+}
+
+.admin-table td {
+    border-top: 1px solid #edf2f7;
+    padding: 14px;
+    color: #111827;
+    font-size: 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.admin-toast-container {
+    position: fixed;
+    right: 24px;
+    top: 96px;
+    z-index: 9999;
+    display: grid;
+    gap: 12px;
+    width: min(420px, calc(100vw - 40px));
+    pointer-events: none;
+}
+
+.admin-toast {
+    border-radius: 18px;
+    background: #ffffff;
+    padding: 14px 16px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+    color: #111827;
+    font-size: 14px;
+    font-weight: 700;
+    pointer-events: auto;
+}
+
+.admin-toast.success {
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.admin-toast.error {
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+.admin-toast.info {
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}
+
+.admin-confirm {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.42);
+    padding: 20px;
+}
+
+.admin-confirm-box {
+    width: min(430px, 100%);
+    border-radius: 26px;
+    background: #ffffff;
+    padding: 26px;
+    box-shadow: 0 24px 54px rgba(15, 23, 42, 0.24);
+}
+
+.admin-confirm-box h3 {
+    margin: 0;
+    color: #111827;
+    font-family: var(--font-heading, "Montserrat", Arial, sans-serif);
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.admin-confirm-box p {
+    margin: 12px 0 0;
+    color: #6b7280;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.admin-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.admin-confirm-cancel,
+.admin-confirm-accept {
+    min-height: 46px;
+    border-radius: 15px;
+    font-family: var(--font-heading, "Montserrat", Arial, sans-serif);
+    font-weight: 850;
+    cursor: pointer;
+}
+
+.admin-confirm-cancel {
+    border: 2px solid #31b8ff;
+    background: #ffffff;
+    color: #31b8ff;
+}
+
+.admin-confirm-accept {
+    border: none;
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.admin-map-popup strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #111827;
+    font-size: 14px;
+}
+
+.admin-map-popup p {
+    margin: 0 0 8px;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.admin-map-popup button {
+    margin-right: 6px;
+    border: none;
+    border-radius: 10px;
+    background: #31b8ff;
+    padding: 7px 10px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.admin-map-popup button:last-child {
+    background: #ef4444;
+}
+
+.admin-file-input {
+    width: 100%;
+    padding: 8px;
+    border: 2px dashed #31B8FF;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #6B7280;
+    background: #f8fafc;
+}
+
+.admin-file-input:hover {
+    border-color: #1098e7;
+    background: #EEF9FF;
+}
+
+.admin-image-preview {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-image-preview img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.admin-image-preview span {
+    font-size: 12px;
+    color: #6B7280;
+    word-break: break-all;
+}
+
+/* =========================
+   DARK THEME FOR ADMIN PAGE
+   ========================= */
+
+html[data-theme="dark"] #adminApp {
+    background: #111722 !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp,
+html[data-theme="dark"] #adminApp * {
+    scrollbar-color: rgba(56, 189, 248, 0.42) #111827;
+}
+
+html[data-theme="dark"] #adminApp ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+html[data-theme="dark"] #adminApp ::-webkit-scrollbar-track {
+    background: #111827;
+}
+
+html[data-theme="dark"] #adminApp ::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.42);
+    border-radius: 999px;
+}
+
+/* Перекрытие Tailwind-фонов внутри админки */
+html[data-theme="dark"] #adminApp .bg-white,
+html[data-theme="dark"] #adminApp .bg-\[\#FFFFFF\],
+html[data-theme="dark"] #adminApp .bg-\[\#ffffff\] {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .bg-\[\#F6F8FB\],
+html[data-theme="dark"] #adminApp .bg-\[\#f6f8fb\],
+html[data-theme="dark"] #adminApp .bg-slate-50,
+html[data-theme="dark"] #adminApp .bg-slate-100,
+html[data-theme="dark"] #adminApp .bg-gray-50,
+html[data-theme="dark"] #adminApp .bg-gray-100 {
+    background: #202b3d !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .bg-\[\#EEF9FF\],
+html[data-theme="dark"] #adminApp .bg-\[\#eef9ff\] {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: #d4deef !important;
+}
+
+html[data-theme="dark"] #adminApp .bg-\[\#FFF8ED\],
+html[data-theme="dark"] #adminApp .bg-\[\#fff8ed\] {
+    background: rgba(244, 166, 42, 0.14) !important;
+    color: #ffe8bd !important;
+}
+
+html[data-theme="dark"] #adminApp .bg-\[\#31B8FF\],
+html[data-theme="dark"] #adminApp .bg-\[\#31b8ff\] {
+    background: #31b8ff !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] #adminApp .bg-\[\#F4A62A\],
+html[data-theme="dark"] #adminApp .bg-\[\#f4a62a\] {
+    background: #f4a62a !important;
+    color: #ffffff !important;
+}
+
+/* Основная сетка и боковая панель */
+html[data-theme="dark"] #adminApp > div {
+    background: #111722 !important;
+}
+
+html[data-theme="dark"] #adminApp aside {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border-color: rgba(139, 164, 196, 0.32) !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] #adminApp main {
+    background: #111722 !important;
+    color: #f4f7ff !important;
+}
+
+/* Карточки и панели */
+html[data-theme="dark"] #adminApp article,
+html[data-theme="dark"] #adminApp section,
+html[data-theme="dark"] #adminApp .rounded-\[26px\],
+html[data-theme="dark"] #adminApp .rounded-\[24px\],
+html[data-theme="dark"] #adminApp .rounded-\[20px\],
+html[data-theme="dark"] #adminApp .rounded-\[18px\],
+html[data-theme="dark"] #adminApp .rounded-2xl {
+    border-color: rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] #adminApp article.bg-white,
+html[data-theme="dark"] #adminApp section.bg-white,
+html[data-theme="dark"] #adminApp .shadow-\[0_16px_34px_rgba\(15\,23\,42\,\.06\)\],
+html[data-theme="dark"] #adminApp .shadow-\[0_18px_38px_rgba\(15\,23\,42\,\.10\)\] {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border-color: rgba(139, 164, 196, 0.32) !important;
+    box-shadow: none !important;
+}
+
+/* Внутренние блоки */
+html[data-theme="dark"] #adminApp .rounded-\[18px\].bg-slate-50,
+html[data-theme="dark"] #adminApp .rounded-2xl.bg-\[\#EEF9FF\],
+html[data-theme="dark"] #adminApp .rounded-full.bg-\[\#EEF9FF\],
+html[data-theme="dark"] #adminApp .rounded-2xl.bg-slate-50 {
+    background: #202b3d !important;
+    color: #d4deef !important;
+    border: 1px solid rgba(139, 164, 196, 0.26) !important;
+}
+
+/* Текущий администратор */
+html[data-theme="dark"] #adminApp aside .mt-7.rounded-\[20px\] {
+    background: rgba(244, 166, 42, 0.14) !important;
+    border: 1px solid rgba(244, 166, 42, 0.36) !important;
+}
+
+html[data-theme="dark"] #adminApp aside .mt-7.rounded-\[20px\] p {
+    color: #ffcf88 !important;
+}
+
+html[data-theme="dark"] #adminApp aside .mt-7.rounded-\[20px\] strong {
+    color: #ffffff !important;
+}
+
+/* Текст */
+html[data-theme="dark"] #adminApp h1,
+html[data-theme="dark"] #adminApp h2,
+html[data-theme="dark"] #adminApp h3,
+html[data-theme="dark"] #adminApp h4,
+html[data-theme="dark"] #adminApp strong,
+html[data-theme="dark"] #adminApp .text-\[\#111827\],
+html[data-theme="dark"] #adminApp .text-slate-900,
+html[data-theme="dark"] #adminApp .text-slate-800,
+html[data-theme="dark"] #adminApp .text-gray-900,
+html[data-theme="dark"] #adminApp .text-gray-800,
+html[data-theme="dark"] #adminApp .text-black {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp p,
+html[data-theme="dark"] #adminApp li,
+html[data-theme="dark"] #adminApp span,
+html[data-theme="dark"] #adminApp label,
+html[data-theme="dark"] #adminApp small,
+html[data-theme="dark"] #adminApp .text-slate-600,
+html[data-theme="dark"] #adminApp .text-slate-500,
+html[data-theme="dark"] #adminApp .text-slate-400,
+html[data-theme="dark"] #adminApp .text-gray-600,
+html[data-theme="dark"] #adminApp .text-gray-500,
+html[data-theme="dark"] #adminApp .text-gray-400 {
+    color: #d4deef !important;
+}
+
+html[data-theme="dark"] #adminApp .text-\[\#31B8FF\],
+html[data-theme="dark"] #adminApp .text-\[\#31b8ff\],
+html[data-theme="dark"] #adminApp .text-\[\#1098E7\],
+html[data-theme="dark"] #adminApp .text-\[\#1098e7\] {
+    color: #38bdf8 !important;
+}
+
+html[data-theme="dark"] #adminApp .text-\[\#F4A62A\],
+html[data-theme="dark"] #adminApp .text-\[\#f4a62a\],
+html[data-theme="dark"] #adminApp .text-\[\#9A5B00\],
+html[data-theme="dark"] #adminApp .text-\[\#9a5b00\] {
+    color: #ffcf88 !important;
+}
+
+/* Поля форм */
+html[data-theme="dark"] #adminApp .admin-field span {
+    color: #d4deef !important;
+}
+
+html[data-theme="dark"] #adminApp input,
+html[data-theme="dark"] #adminApp textarea,
+html[data-theme="dark"] #adminApp select,
+html[data-theme="dark"] #adminApp .admin-field input,
+html[data-theme="dark"] #adminApp .admin-field textarea,
+html[data-theme="dark"] #adminApp .admin-field select {
+    background: #0f1724 !important;
+    color: #f4f7ff !important;
+    border-color: rgba(56, 189, 248, 0.48) !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] #adminApp input::placeholder,
+html[data-theme="dark"] #adminApp textarea::placeholder {
+    color: #9bacbf !important;
+}
+
+html[data-theme="dark"] #adminApp input:focus,
+html[data-theme="dark"] #adminApp textarea:focus,
+html[data-theme="dark"] #adminApp select:focus,
+html[data-theme="dark"] #adminApp .admin-field input:focus,
+html[data-theme="dark"] #adminApp .admin-field textarea:focus,
+html[data-theme="dark"] #adminApp .admin-field select:focus {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.16) !important;
+}
+
+/* Кнопки вкладок */
+html[data-theme="dark"] #adminApp nav button {
+    color: #d4deef !important;
+}
+
+html[data-theme="dark"] #adminApp nav button:hover {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: #38bdf8 !important;
+}
+
+html[data-theme="dark"] #adminApp nav button.bg-\[\#31B8FF\],
+html[data-theme="dark"] #adminApp nav button[class*="bg-[#31B8FF]"] {
+    background: #31b8ff !important;
+    color: #ffffff !important;
+}
+
+/* Основные кнопки */
+html[data-theme="dark"] #adminApp button {
+    border-color: rgba(139, 164, 196, 0.32);
+}
+
+html[data-theme="dark"] #adminApp .admin-primary-action,
+html[data-theme="dark"] #adminApp .admin-mini-blue,
+html[data-theme="dark"] #adminApp button.bg-\[\#31B8FF\] {
+    background: #31b8ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(56, 189, 248, 0.2) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-primary-action:hover,
+html[data-theme="dark"] #adminApp .admin-mini-blue:hover,
+html[data-theme="dark"] #adminApp button.bg-\[\#31B8FF\]:hover {
+    background: #1098e7 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-orange-action,
+html[data-theme="dark"] #adminApp .admin-mini-orange,
+html[data-theme="dark"] #adminApp button.bg-\[\#F4A62A\] {
+    background: #f4a62a !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(244, 166, 42, 0.2) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-orange-action:hover,
+html[data-theme="dark"] #adminApp .admin-mini-orange:hover,
+html[data-theme="dark"] #adminApp button.bg-\[\#F4A62A\]:hover {
+    background: #ea9a1b !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-danger-action,
+html[data-theme="dark"] #adminApp .admin-text-btn.danger {
+    background: transparent !important;
+    color: #fb7185 !important;
+    border: 2px solid #fb7185 !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-danger-action:hover,
+html[data-theme="dark"] #adminApp .admin-text-btn.danger:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-text-btn {
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.26) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-text-btn:hover {
+    background: #31b8ff !important;
+    color: #ffffff !important;
+}
+
+/* Таблицы */
+html[data-theme="dark"] #adminApp .admin-table {
+    background: transparent !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-table th {
+    color: #38bdf8 !important;
+    border-color: rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-table td {
+    color: #d4deef !important;
+    border-color: rgba(139, 164, 196, 0.22) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-table tr:hover td {
+    background: rgba(56, 189, 248, 0.07) !important;
+}
+
+/* Пустые состояния */
+html[data-theme="dark"] #adminApp .admin-empty {
+    background: #202b3d !important;
+    color: #d4deef !important;
+    border: 1px solid rgba(139, 164, 196, 0.26) !important;
+}
+
+/* Карточки маршрутов и POI */
+html[data-theme="dark"] #adminApp article.grid,
+html[data-theme="dark"] #adminApp article.overflow-hidden {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border-color: rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] #adminApp article.grid h4,
+html[data-theme="dark"] #adminApp article.overflow-hidden h4 {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp article.grid p,
+html[data-theme="dark"] #adminApp article.overflow-hidden p {
+    color: #d4deef !important;
+}
+
+/* Предупреждение в пользователях */
+html[data-theme="dark"] #adminApp .bg-\[\#FFF8ED\].text-\[\#9A5B00\],
+html[data-theme="dark"] #adminApp div[class*="bg-[#FFF8ED]"] {
+    background: rgba(244, 166, 42, 0.14) !important;
+    color: #ffcf88 !important;
+    border: 1px solid rgba(244, 166, 42, 0.36) !important;
+}
+
+/* Карты Leaflet */
+html[data-theme="dark"] #adminApp .admin-leaflet-map {
+    border-color: #202b3d !important;
+    background: #202b3d !important;
+}
+
+html[data-theme="dark"] #adminApp .leaflet-popup-content-wrapper,
+html[data-theme="dark"] #adminApp .leaflet-popup-tip {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .leaflet-popup-content {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .leaflet-control-zoom a {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border-color: rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-map-popup strong {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp .admin-map-popup p {
+    color: #d4deef !important;
+}
+
+/* Toast и confirm */
+html[data-theme="dark"] .admin-toast {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border: 1px solid rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] .admin-toast.success {
+    color: #86efac !important;
+    border-color: rgba(134, 239, 172, 0.4) !important;
+}
+
+html[data-theme="dark"] .admin-toast.error {
+    color: #fecaca !important;
+    border-color: rgba(248, 113, 113, 0.45) !important;
+}
+
+html[data-theme="dark"] .admin-toast.info {
+    color: #bfdbfe !important;
+    border-color: rgba(96, 165, 250, 0.45) !important;
+}
+
+html[data-theme="dark"] .admin-confirm {
+    background: rgba(3, 7, 18, 0.72) !important;
+}
+
+html[data-theme="dark"] .admin-confirm-box {
+    background: #1a2332 !important;
+    color: #f4f7ff !important;
+    border: 1px solid rgba(139, 164, 196, 0.32) !important;
+}
+
+html[data-theme="dark"] .admin-confirm-box h3 {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] .admin-confirm-box p {
+    color: #d4deef !important;
+}
+
+html[data-theme="dark"] .admin-confirm-cancel {
+    background: transparent !important;
+    color: #38bdf8 !important;
+    border-color: #38bdf8 !important;
+}
+
+html[data-theme="dark"] .admin-confirm-cancel:hover {
+    background: #31b8ff !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .admin-confirm-accept {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+/* Самое жёсткое перекрытие оставшихся светлых блоков */
+html[data-theme="dark"] #adminApp [class*="bg-white"],
+html[data-theme="dark"] #adminApp [class*="bg-slate-50"],
+html[data-theme="dark"] #adminApp [class*="bg-slate-100"],
+html[data-theme="dark"] #adminApp [class*="bg-gray-50"],
+html[data-theme="dark"] #adminApp [class*="bg-gray-100"] {
+    background-color: #202b3d !important;
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp [class*="text-[#111827]"],
+html[data-theme="dark"] #adminApp [class*="text-slate-900"],
+html[data-theme="dark"] #adminApp [class*="text-slate-800"],
+html[data-theme="dark"] #adminApp [class*="text-gray-900"],
+html[data-theme="dark"] #adminApp [class*="text-gray-800"] {
+    color: #f4f7ff !important;
+}
+
+html[data-theme="dark"] #adminApp [class*="text-slate-600"],
+html[data-theme="dark"] #adminApp [class*="text-slate-500"],
+html[data-theme="dark"] #adminApp [class*="text-slate-400"],
+html[data-theme="dark"] #adminApp [class*="text-gray-600"],
+html[data-theme="dark"] #adminApp [class*="text-gray-500"],
+html[data-theme="dark"] #adminApp [class*="text-gray-400"] {
+    color: #d4deef !important;
+}
+
+@media (max-width: 760px) {
+    .admin-leaflet-map {
+        height: 340px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    html[data-theme="dark"] #adminApp aside,
+    html[data-theme="dark"] #adminApp main {
+        background: #111722 !important;
+    }
+}

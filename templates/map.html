@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}
+Карта маршрутов
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="map-page" id="mapApp">
+    <div class="map-top">
+        <div class="map-heading">
+            <p class="map-eyebrow">Интерактивная карта</p>
+            <h1>Создание маршрута</h1>
+        </div>
+
+        <a href="/ready_tours" class="map-ready-link">
+            Готовые маршруты
+        </a>
+    </div>
+
+    <div class="mobile-map-actions" aria-label="Быстрое управление картой">
+        <button type="button" data-mobile-sheet="route">
+            Создать маршрут
+        </button>
+        <button type="button" data-mobile-sheet="routes" data-mobile-panel="created">
+            Открыть готовые маршруты
+        </button>
+    </div>
+
+    <div class="mobile-sheet-backdrop" id="mobileSheetBackdrop"></div>
+
+    <div class="map-container">
+
+        <aside class="map-sidebar">
+            <div class="route-title-box">
+                <button type="button" class="mobile-sheet-close" data-close-mobile-sheet aria-label="Закрыть панель">
+                    ×
+                </button>
+                <span>Текущий маршрут</span>
+                <h2 id="routeTitleDisplay">Новый маршрут</h2>
+            </div>
+
+            <div class="map-left-body">
+                <div class="map-controls-column">
+                    <div class="map-card map-compact-card">
+                        <h3 class="map-card-title">Категории объектов</h3>
+
+                        <div class="map-filters">
+                            <label class="map-checkbox">
+                                <input type="checkbox" id="filterAttraction" checked>
+                                <span>Достопримечательности</span>
+                            </label>
+
+                            <label class="map-checkbox">
+                                <input type="checkbox" id="filterCafe" checked>
+                                <span>Кафе</span>
+                            </label>
+
+                            <label class="map-checkbox">
+                                <input type="checkbox" id="filterRestaurant" checked>
+                                <span>Рестораны</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="map-card map-compact-card">
+                        <h3 class="map-card-title">Тип участка</h3>
+
+                        <select id="routeType" class="map-select">
+                            <option value="driving">Транспорт</option>
+                            <option value="foot">Пешком</option>
+                        </select>
+                    </div>
+
+                    <div class="map-card map-compact-card map-points-card">
+                        <h3 class="map-card-title">Координаты точек</h3>
+
+                        <div class="map-points">
+                            <div class="map-point">
+                                <span>Начальная</span>
+                                <p id="pointA">Не выбрана</p>
+                            </div>
+
+                            <div class="map-point">
+                                <span>Конечная</span>
+                                <p id="pointB">Не выбрана</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="clearRoute()" class="map-clear-btn">
+                        Очистить маршрут
+                    </button>
+                </div>
+
+                <div class="map-segments-column">
+                    <div class="segments-header">
+                        <div>
+                            <h3>Участки маршрута</h3>
+                            <p>Тип каждого участка можно менять отдельно.</p>
+                        </div>
+                    </div>
+
+                    <div id="segments" class="map-segments"></div>
+
+                    <div id="routeInfo" class="map-route-info">
+                        Нажмите на карту или найдите адрес, чтобы добавить точки.
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="map-wrapper">
+            <div class="map-search-panel" id="mapSearchPanel">
+                <div class="map-search-row">
+                    <span class="map-search-icon">🔍</span>
+
+                    <input
+                        type="text"
+                        id="addressSearchInput"
+                        class="map-search-input"
+                        placeholder="Найти место или адрес во Владивостоке"
+                        autocomplete="off"
+                    >
+
+                    <button type="button" id="addressSearchClear" class="map-search-clear hidden" aria-label="Очистить поиск">
+                        ×
+                    </button>
+
+                    <button type="button" id="addressSearchButton" class="map-search-button">
+                        Найти
+                    </button>
+                </div>
+
+                <div id="addressSearchResults" class="map-search-results hidden"></div>
+            </div>
+
+            <div id="map"></div>
+        </main>
+
+        <aside class="map-right-panel">
+            <button type="button" class="mobile-sheet-close map-right-close" data-close-mobile-sheet aria-label="Закрыть панель">
+                ×
+            </button>
+
+            <div class="map-panel-title">
+                <h2>Маршруты</h2>
+                <p>Сохранение и подборки.</p>
+            </div>
+
+            {% if session.get('user_id') %}
+                <div class="map-card map-save-card">
+                    <div class="route-name-row">
+                        <h3 class="map-card-title">Название</h3>
+                        <span id="routeNameCounter">0/80</span>
+                    </div>
+
+                    <input
+                        type="text"
+                        id="routeName"
+                        maxlength="80"
+                        class="map-input"
+                        placeholder="Например, прогулка по центру"
+                    >
+
+                    <button type="button" onclick="saveRoute()" class="map-save-btn">
+                        Сохранить маршрут
+                    </button>
+                </div>
+
+                <div class="mobile-route-tabs" aria-label="Разделы маршрутов">
+                    <button type="button" class="mobile-route-tab active" data-route-tab="created">
+                        Созданные
+                    </button>
+                    <button type="button" class="mobile-route-tab" data-route-tab="favorite">
+                        Избранные
+                    </button>
+                    <button type="button" class="mobile-route-tab" data-route-tab="ready">
+                        Готовые
+                    </button>
+                </div>
+
+                <details class="map-collapsible-card mobile-route-tab-panel mobile-route-panel-active" id="createdRoutesDetails" data-route-panel="created">
+                    <summary>
+                        <div>
+                            <h3>Созданные маршруты</h3>
+                            <p><span id="createdRoutesCount">0</span> маршрутов. Нажмите, чтобы открыть список.</p>
+                        </div>
+                        <span class="details-arrow">⌄</span>
+                    </summary>
+
+                    <ul id="routeList" class="route-list"></ul>
+                </details>
+
+                <details class="map-collapsible-card mobile-route-tab-panel" id="favoriteRoutesDetails" data-route-panel="favorite">
+                    <summary>
+                        <div>
+                            <h3>Избранные маршруты</h3>
+                            <p><span id="favoriteRoutesCount">0</span> маршрутов. Нажмите, чтобы открыть список.</p>
+                        </div>
+                        <span class="details-arrow">⌄</span>
+                    </summary>
+
+                    <ul id="favoriteRouteList" class="route-list"></ul>
+                </details>
+            {% else %}
+                <div class="map-card auth-card">
+                    <h3 class="map-card-title">Сохранение</h3>
+
+                    <p class="auth-text">
+                        <a href="/login">Войдите</a> или
+                        <a href="/register">зарегистрируйтесь</a>, чтобы сохранять маршруты.
+                    </p>
+                </div>
+            {% endif %}
+
+            {% if not session.get('user_id') %}
+                <div class="mobile-route-tabs" aria-label="Разделы маршрутов">
+                    <button type="button" class="mobile-route-tab active" data-route-tab="ready">
+                        Готовые
+                    </button>
+                </div>
+            {% endif %}
+
+            <details class="map-collapsible-card mobile-route-tab-panel" id="readyRoutesDetails" data-route-panel="ready">
+                <summary>
+                    <div>
+                        <h3>Готовые маршруты</h3>
+                        <p><span id="readyRoutesCount">0</span> маршрута. Нажмите, чтобы посмотреть подборку.</p>
+                    </div>
+                    <span class="details-arrow">⌄</span>
+                </summary>
+
+                <ul id="readyRouteList" class="route-list ready-route-list"></ul>
+            </details>
+        </aside>
+
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div id="confirmModal" class="confirm-modal hidden">
+        <div class="confirm-box">
+            <h3 id="confirmTitle">Подтвердите действие</h3>
+            <p id="confirmText">Вы уверены?</p>
+
+            <div class="confirm-actions">
+                <button id="confirmCancel" type="button" class="confirm-cancel">
+                    Отмена
+                </button>
+
+                <button id="confirmAccept" type="button" class="confirm-accept">
+                    Удалить
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page auth-register-page page-decor-root">
+
+    <div class="page-decor-line auth-page-line-top">
+        <img
+            src="{{ url_for('static', filename='img/decor/line-top.svg') }}"
+            alt=""
+        >
+    </div>
+
+    <div class="container auth-container page-decor-content">
+
+        <div class="auth-image-block">
+            <img
+                src="{{ url_for('static', filename='img/city/login-photo.jpg') }}"
+                alt="Владивосток"
+                class="auth-image"
+            >
+        </div>
+
+        <div class="auth-form-block auth-form-register">
+
+            <img
+                src="{{ url_for('static', filename='img/decor/seagull.png') }}"
+                alt=""
+                class="auth-seagull"
+            >
+
+            <img
+                src="{{ url_for('static', filename='img/decor/lighthouse.png') }}"
+                alt=""
+                class="auth-lighthouse"
+            >
+
+            <div class="auth-tabs">
+                <a href="/login" class="auth-tab">Логин</a>
+                <a href="/register" class="auth-tab active">Регистрация</a>
+            </div>
+
+            <h1 class="auth-title">
+                Создать<br>
+                аккаунт
+            </h1>
+
+            <p class="auth-subtitle">
+                Создав аккаунт, вы сможете добавлять маршруты в избранное,
+                создавать свои маршруты и возвращаться к ним позднее.
+            </p>
+
+            {% if error %}
+                <div class="auth-message">
+                    <p>{{ error }}</p>
+                </div>
+            {% endif %}
+
+            <form method="POST" class="auth-form">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Логин"
+                    class="auth-input"
+                    autocomplete="username"
+                    value="{{ form_username or '' }}"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Почта"
+                    class="auth-input"
+                    autocomplete="email"
+                    value="{{ form_email or '' }}"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    class="auth-input"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password_repeat"
+                    placeholder="Повторите пароль"
+                    class="auth-input"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+
+                <!--<label class="admin-checkbox">
+                <input type="checkbox" name="is_admin">
+                Сделать пользователя администратором
+                </label>-->
+
+
+                <button type="submit" class="auth-submit">
+                    Зарегистрироваться
+                </button>
+            </form>
+
+            <p class="auth-bottom-text">
+                Уже есть учётная запись?
+                <a href="/login">Войти в аккаунт</a>
+            </p>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

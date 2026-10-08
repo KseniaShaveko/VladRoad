@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block title %}
+Готовые маршруты
+{% endblock %}
+
+{% block content %}
+
+<section class="relative h-[320px] overflow-hidden md:h-[420px]">
+    <img
+        src="{{ url_for('static', filename='img/hero/routes-banner.jpg') }}"
+        alt="Маршруты по Владивостоку"
+        class="h-full w-full object-cover"
+    >
+
+    <div class="absolute inset-0 bg-black/45"></div>
+
+    <div class="absolute inset-0 flex items-center justify-center px-6 text-center">
+        <h1 class="text-5xl font-bold uppercase text-white md:text-6xl lg:text-7xl">
+            Маршруты
+        </h1>
+    </div>
+</section>
+
+<div id="readyRoutesApp" v-cloak>
+
+    <section class="relative z-10 -mt-12 page-decor-root overflow-visible">
+
+        <div class="page-decor-line routes-page-line-top">
+            <img
+                src="{{ url_for('static', filename='img/decor/line-top.svg') }}"
+                alt=""
+            >
+        </div>
+
+        <div class="mx-auto w-full max-w-[1180px] px-6 lg:px-8 page-decor-content">
+
+            <div class="relative rounded-[30px] border border-[#31B8FF]/25 bg-white p-5 shadow-soft">
+
+                <div class="grid gap-4 xl:grid-cols-[1.45fr_0.95fr_1fr_auto] xl:items-stretch">
+
+                    <div class="rounded-[22px] border-2 border-[#31B8FF]/25 bg-white px-5 py-4">
+                        <label class="mb-3 block text-xs font-black uppercase tracking-[0.22em] text-[#31B8FF]">
+                            Поиск маршрута
+                        </label>
+
+                        <div class="flex min-h-[50px] items-center gap-3 rounded-[17px] border-2 border-[#31B8FF] bg-white px-4">
+                            <span class="text-xl text-[#31B8FF]">🔍</span>
+
+                            <input
+                                v-model.trim="searchQuery"
+                                type="text"
+                                placeholder="Название, место или улица..."
+                                class="min-w-0 flex-1 bg-transparent text-sm font-bold text-[#111827] outline-none placeholder:text-slate-400"
+                                autocomplete="off"
+                            >
+
+                            <button
+                                v-if="searchQuery"
+                                type="button"
+                                class="rounded-full bg-[#F43F46] px-3 py-1 text-xs font-black text-white transition hover:scale-105"
+                                @click="searchQuery = ''"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="rounded-[22px] border-2 border-[#31B8FF]/25 bg-white px-5 py-4">
+                        <p class="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#31B8FF]">
+                            Длительность
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                v-for="option in durationOptions"
+                                :key="option.value"
+                                type="button"
+                                class="min-h-[38px] rounded-full px-3 text-xs font-black transition"
+                                :class="durationFilter === option.value
+                                    ? 'bg-[#31B8FF] text-white shadow-[0_8px_18px_rgba(49,184,255,.35)]'
+                                    : 'bg-white text-[#31B8FF] ring-2 ring-[#31B8FF]/35 hover:bg-[#31B8FF] hover:text-white'"
+                                @click="durationFilter = option.value"
+                            >
+                                [[ option.label ]]
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="rounded-[22px] border-2 border-[#31B8FF]/25 bg-white px-5 py-4">
+                        <p class="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#31B8FF]">
+                            Передвижение
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                v-for="option in transportOptions"
+                                :key="option.value"
+                                type="button"
+                                class="min-h-[38px] rounded-full px-3 text-xs font-black transition"
+                                :class="transportFilter === option.value
+                                    ? 'bg-[#31B8FF] text-white shadow-[0_8px_18px_rgba(49,184,255,.35)]'
+                                    : 'bg-white text-[#31B8FF] ring-2 ring-[#31B8FF]/35 hover:bg-[#31B8FF] hover:text-white'"
+                                @click="transportFilter = option.value"
+                            >
+                                [[ option.label ]]
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-3 sm:grid-cols-2 xl:w-[150px] xl:grid-cols-1">
+                        <a
+                            href="/map"
+                            class="inline-flex min-h-[50px] items-center justify-center rounded-[18px] bg-[#31B8FF] px-5 text-sm font-black text-white shadow-[0_10px_20px_rgba(49,184,255,.32)] transition hover:bg-[#1098e7]"
+                        >
+                            На карту
+                        </a>
+
+                        <button
+                            type="button"
+                            class="inline-flex min-h-[50px] items-center justify-center rounded-[18px] bg-[#F4A62A] px-5 text-sm font-black text-white shadow-[0_10px_20px_rgba(244,166,42,.32)] transition hover:bg-[#EA9A1B]"
+                            @click="resetFilters"
+                        >
+                            Сбросить
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="mt-4 flex flex-wrap items-center gap-3 border-t border-[#31B8FF]/20 pt-4">
+                    <span class="rounded-full bg-[#31B8FF] px-4 py-2 text-xs font-black text-white">
+                        Найдено: [[ filteredRoutes.length ]]
+                    </span>
+
+                    <span
+                        v-if="searchQuery"
+                        class="rounded-full border-2 border-[#31B8FF]/35 bg-white px-4 py-2 text-xs font-black text-[#111827]"
+                    >
+                        Поиск: [[ searchQuery ]]
+                    </span>
+
+                    <span
+                        v-if="durationFilter !== 'all'"
+                        class="rounded-full bg-[#31B8FF] px-4 py-2 text-xs font-black text-white"
+                    >
+                        [[ durationLabel ]]
+                    </span>
+
+                    <span
+                        v-if="transportFilter !== 'all'"
+                        class="rounded-full bg-[#31B8FF] px-4 py-2 text-xs font-black text-white"
+                    >
+                        [[ transportLabel ]]
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 md:py-24 ready-routes-list overflow-visible">
+        <div class="mx-auto w-full max-w-[1400px] px-6 lg:px-8">
+
+            <div class="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p class="mb-3 text-sm font-black uppercase tracking-[0.25em] text-[#31B8FF]">
+                        Подборка
+                    </p>
+
+                    <h2 class="text-4xl font-black leading-tight text-[#111827] md:text-5xl">
+                        Готовые маршруты
+                    </h2>
+                </div>
+
+                <p class="max-w-[470px] text-base leading-7 text-[#6B7280]">
+                    Выберите один из подготовленных маршрутов и откройте его
+                    на карте для просмотра точек и дальнейшего построения пути.
+                </p>
+            </div>
+
+            <transition-group
+                name="route-list"
+                tag="div"
+                class="grid gap-10 overflow-visible py-3 md:grid-cols-2 xl:grid-cols-3"
+            >
+                <a
+                    v-for="route in filteredRoutes"
+                    :key="route.id"
+                    :href="`/map?ready_route=${route.id}`"
+                    class="ready-route-card-vue group block overflow-hidden rounded-[24px] bg-white transition duration-300 hover:-translate-y-1"
+                >
+                    <div class="h-[230px] overflow-hidden">
+                        <img
+                            :src="route.image"
+                            :alt="route.title"
+                            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        >
+                    </div>
+
+                    <div class="p-6">
+
+                        <div class="flex justify-between items-start gap-3">
+
+                            <div>
+
+                                <p class="mb-3 text-sm font-black text-[#31B8FF]">
+                                    [[ route.location ]]
+                                </p>
+
+                                <h3 class="mb-5 min-h-[56px] text-xl font-black leading-snug text-[#111827]">
+                                    [[ route.title ]]
+                                </h3>
+
+                            </div>
+
+                            <button
+                                v-if="isAdmin"
+                                @click.prevent.stop="deleteReadyRoute(route.id)"
+                                class="rounded-full bg-red-500 px-3 py-2 text-sm font-bold text-white hover:bg-red-600"
+                            >
+                                🗑
+                            </button>
+
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 text-sm">
+                            <span class="inline-flex items-center rounded-full bg-[#31B8FF] px-4 py-2 font-bold text-white">
+                                [[ route.transport ]]
+                            </span>
+
+                            <span class="inline-flex items-center rounded-full bg-[#F4A62A] px-4 py-2 font-bold text-white">
+                                [[ route.durationText ]]
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </transition-group>
+
+            <div
+                v-if="filteredRoutes.length === 0"
+                class="rounded-[28px] border-2 border-dashed border-[#31B8FF] bg-white p-10 text-center shadow-soft"
+            >
+                <p class="text-2xl font-black text-[#111827]">
+                    Маршруты не найдены
+                </p>
+
+                <p class="mt-3 text-[#6B7280]">
+                    Измените фильтры или очистите поисковую строку.
+                </p>
+
+                <button
+                    type="button"
+                    class="mt-6 inline-flex min-h-12 items-center justify-center rounded-[16px] bg-[#31B8FF] px-7 text-sm font-black text-white transition hover:bg-[#1098e7]"
+                    @click="resetFilters"
+                >
+                    Сбросить фильтры
+                </button>
+            </div>
+
+            <div class="mt-14 flex justify-center">
+                <a
+                    href="/map"
+                    class="inline-flex min-h-12 items-center justify-center rounded-[14px] bg-[#31B8FF] px-7 text-sm font-black text-white transition hover:bg-[#1098e7]"
+                >
+                    Открыть карту
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<script>
+window.READY_ROUTES = {{ routes|tojson }};
+window.IS_ADMIN = {{ is_admin|tojson }};
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="{{ url_for('static', filename='js/ready_tours.js') }}"></script>
+{% endblock %}

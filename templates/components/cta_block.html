@@ -1,0 +1,37 @@
+<section class="cta-section">
+    <div class="cta-dots"></div>
+    <div class="container cta-wrapper">
+        <div class="cta-left">
+            <h2 class="cta-title">
+                Создайте свой собственный<br>
+                маршрут и поделитесь им с нами!
+            </h2>
+        </div>
+        <div class="cta-center">
+            <a href="/map" class="cta-button">
+                Создать<br>
+                маршрут
+            </a>
+        </div>
+        <div class="cta-right">
+            {% if session.get('user_id') %}
+                <p class="cta-text">
+                    Все ваши маршруты сохраняются в профиле —
+                    возвращайтесь к ним в любое время.
+                </p>
+                <div class="cta-register">
+                    <a href="/profile">Мои маршруты</a>
+                </div>
+            {% else %}
+                <p class="cta-text">
+                    Только зарегистрированные пользователи могут сохранять
+                    и редактировать маршруты.
+                </p>
+                <div class="cta-register">
+                    <span>Нет аккаунта?</span>
+                    <a href="/register">Регистрация</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
