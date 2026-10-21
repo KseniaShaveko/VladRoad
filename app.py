@@ -17,7 +17,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key_change_it"
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-key-do-not-use-in-production")
 
 # DATABASE_NAME = "database.db"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -367,7 +367,7 @@ def register():
         users_count = cursor.fetchone()["count"]
 
         # Первый пользователь автоматически становится администратором.
-        is_admin_value = 1 if users_count == 0 or request.form.get("is_admin") else 0
+        is_admin_value = 1 if users_count == 0 else 0
 
         try:
             cursor.execute("""
@@ -574,22 +574,34 @@ def edit_profile():
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
 
-        if not username or not password:
-            flash("Заполните имя пользователя и пароль")
+        if not username:
+            flash("Введите имя пользователя")
             conn.close()
             return redirect("/edit_profile")
 
         try:
-            cursor.execute("""
-                UPDATE users
-                SET username = ?,
-                    password = ?
-                WHERE id = ?
-            """, (
-                username,
-                password,
-                user_id
-            ))
+            if password:
+                # Новый пароль сохраняем только в виде хэша.
+                cursor.execute("""
+                    UPDATE users
+                    SET username = ?,
+                        password = ?
+                    WHERE id = ?
+                """, (
+                    username,
+                    generate_password_hash(password),
+                    user_id
+                ))
+            else:
+                # Пустое поле пароля = оставить прежний пароль.
+                cursor.execute("""
+                    UPDATE users
+                    SET username = ?
+                    WHERE id = ?
+                """, (
+                    username,
+                    user_id
+                ))
 
             conn.commit()
 
@@ -604,7 +616,7 @@ def edit_profile():
             return redirect("/edit_profile")
 
     cursor.execute("""
-        SELECT username, email, password
+        SELECT username, email
         FROM users
         WHERE id = ?
     """, (user_id,))
@@ -620,7 +632,6 @@ def edit_profile():
         "edit_profile.html",
         username=user["username"],
         email=user["email"],
-        password=user["password"],
         is_logged_in=True,
         is_admin=is_admin()
     )
@@ -1423,10 +1434,8 @@ def check_ready_routes():
 
 # ---------------- START ----------------
 
-# if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
-
 init_db()
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Режим отладки включается только явно: FLASK_DEBUG=1
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
